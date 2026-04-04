@@ -1,0 +1,452 @@
+[
+  {
+    "prompt": "The capital of Italy is Rome. The capital of Spain is Madrid. The capital of France is",
+    "correct": " Paris",
+    "incorrect": [
+      " Marseille",
+      " Lyon",
+      " Bordeaux"
+    ]
+  },
+  {
+    "prompt": "The capital of Spain is Madrid. The capital of Germany is Berlin. The capital of France is",
+    "correct": " Paris",
+    "incorrect": [
+      " Marseille",
+      " Lyon",
+      " Strasbourg"
+    ]
+  },
+  {
+    "prompt": "The capital of Italy is Rome. The capital of Germany is Berlin. The capital of France is",
+    "correct": " Paris",
+    "incorrect": [
+      " Marseille",
+      " Nice",
+      " Bordeaux"
+    ]
+  },
+  {
+    "prompt": "The capital of UK is London. The capital of Germany is Berlin. The capital of France is",
+    "correct": " Paris",
+    "incorrect": [
+      " Marseille",
+      " Lyon",
+      " Nice"
+    ]
+  },
+  {
+    "prompt": "The capital of UK is London. The capital of Italy is Rome. The capital of France is",
+    "correct": " Paris",
+    "incorrect": [
+      " Marseille",
+      " Lyon",
+      " Bordeaux"
+    ]
+  },
+  {
+    "prompt": "The capital of Germany is Berlin. The capital of France is Paris. The capital of Spain is",
+    "correct": " Madrid",
+    "incorrect": [
+      " Barcelona",
+      " Seville",
+      " Valencia"
+    ]
+  },
+  {
+    "prompt": "The capital of UK is London. The capital of Germany is Berlin. The capital of Spain is",
+    "correct": " Madrid",
+    "incorrect": [
+      " Barcelona",
+      " Seville",
+      " Valencia"
+    ]
+  },
+  {
+    "prompt": "The capital of UK is London. The capital of France is Paris. The capital of Spain is",
+    "correct": " Madrid",
+    "incorrect": [
+      " Barcelona",
+      " Seville",
+      " Valencia"
+    ]
+  },
+  {
+    "prompt": "The capital of Russia is Moscow. The capital of Italy is Rome. The capital of Spain is",
+    "correct": " Madrid",
+    "incorrect": [
+      " Barcelona",
+      " Valencia",
+      " Seville"
+    ]
+  },
+  {
+    "prompt": "The capital of Russia is Moscow. The capital of Spain is Madrid. The capital of Italy is",
+    "correct": " Rome",
+    "incorrect": [
+      " Milan",
+      " Naples",
+      " Florence"
+    ]
+  },
+  {
+    "prompt": "The capital of UK is London. The capital of Spain is Madrid. The capital of Italy is",
+    "correct": " Rome",
+    "incorrect": [
+      " Milan",
+      " Naples",
+      " Florence"
+    ]
+  },
+  {
+    "prompt": "The capital of UK is London. The capital of France is Paris. The capital of Italy is",
+    "correct": " Rome",
+    "incorrect": [
+      " Milan",
+      " Florence",
+      " Naples"
+    ]
+  },
+  {
+    "prompt": "The capital of UK is London. The capital of Italy is Rome. The capital of Germany is",
+    "correct": " Berlin",
+    "incorrect": [
+      " Munich",
+      " Hamburg",
+      " Frankfurt"
+    ]
+  },
+  {
+    "prompt": "The capital of China is Beijing. The capital of Russia is Moscow. The capital of Germany is",
+    "correct": " Berlin",
+    "incorrect": [
+      " Munich",
+      " Frankfurt",
+      " Hamburg"
+    ]
+  },
+  {
+    "prompt": "The capital of Spain is Madrid. The capital of France is Paris. The capital of Italy is",
+    "correct": " Rome",
+    "incorrect": [
+      " Milan",
+      " Florence",
+      " Venice"
+    ]
+  },
+  {
+    "prompt": "The capital of France is Paris. The capital of Spain is Madrid. The capital of Germany is",
+    "correct": " Berlin",
+    "incorrect": [
+      " Munich",
+      " Frankfurt",
+      " Cologne"
+    ]
+  },
+  {
+    "prompt": "The capital of Italy is Rome. The capital of France is Paris. The capital of Russia is",
+    "correct": " Moscow",
+    "incorrect": [
+      " St Petersburg",
+      " Kiev",
+      " Minsk"
+    ]
+  },
+  {
+    "prompt": "The capital of Japan is Tokyo. The capital of China is Beijing. The capital of Russia is",
+    "correct": " Moscow",
+    "incorrect": [
+      " St Petersburg",
+      " Kiev",
+      " Vladivostok"
+    ]
+  },
+  {
+    "prompt": "The capital of Germany is Berlin. The capital of France is Paris. The capital of Russia is",
+    "correct": " Moscow",
+    "incorrect": [
+      " St Petersburg",
+      " Kiev",
+      " Warsaw"
+    ]
+  },
+  {
+    "prompt": "The capital of France is Paris. The capital of Germany is Berlin. The capital of Japan is",
+    "correct": " Tokyo",
+    "incorrect": [
+      " Osaka",
+      " Kyoto",
+      " Yokohama"
+    ]
+  },
+  {
+    "prompt": "Sir Isaac",
+    "correct": " Newton",
+    "incorrect": [
+      " As",
+      " Alexander",
+      " Asimov"
+    ]
+  },
+  {
+    "prompt": "The Mona Lisa was painted by Leonardo",
+    "correct": " da",
+    "incorrect": [
+      " Di",
+      " De",
+      " del"
+    ]
+  },
+  {
+    "prompt": "Leibniz and Newton both developed calculus. Newton is also known as Sir Isaac",
+    "correct": " Newton",
+    "incorrect": [
+      " As",
+      " Alexander",
+      " And"
+    ]
+  },
+  {
+    "prompt": "The Principia Mathematica of Sir Isaac",
+    "correct": " Newton",
+    "incorrect": [
+      " As",
+      " Alexander",
+      " Asimov"
+    ]
+  },
+  {
+    "prompt": "Vasco da",
+    "correct": " Gama",
+    "incorrect": [
+      " Gamma",
+      " Vila",
+      " da"
+    ]
+  },
+  {
+    "prompt": "The Mona Lisa and The Last Supper were painted by Leonardo da",
+    "correct": " Vinci",
+    "incorrect": [
+      " Caprio",
+      " Savio",
+      " Fabbri"
+    ]
+  },
+  {
+    "prompt": "The Communist Manifesto was written by Karl Marx and Friedrich",
+    "correct": " Engels",
+    "incorrect": [
+      " Nietzsche",
+      " Hegel",
+      " Hess"
+    ]
+  },
+  {
+    "prompt": "Romeo and Juliet was written by William",
+    "correct": " Shakespeare",
+    "incorrect": [
+      " Golding",
+      " Wordsworth",
+      " Blake"
+    ]
+  },
+  {
+    "prompt": "Hamlet is a tragedy by William",
+    "correct": " Shakespeare",
+    "incorrect": [
+      " Golding",
+      " Blake",
+      " Thackeray"
+    ]
+  },
+  {
+    "prompt": "The Communist Manifesto was co-authored by Marx and",
+    "correct": " Engels",
+    "incorrect": [
+      " Lenin",
+      " Trotsky",
+      " Stalin"
+    ]
+  },
+  {
+    "prompt": "World War I ended in 1918. World War II ended in",
+    "correct": " 1945",
+    "incorrect": [
+      " 1944",
+      " 1946",
+      " 1943"
+    ]
+  },
+  {
+    "prompt": "The Declaration of Independence was signed in 1776. The French Revolution began in",
+    "correct": " 1789",
+    "incorrect": [
+      " 1776",
+      " 1799",
+      " 1815"
+    ]
+  },
+  {
+    "prompt": "The Berlin Wall was built in 1961. The Berlin Wall fell in",
+    "correct": " 1989",
+    "incorrect": [
+      " 1987",
+      " 1991",
+      " 1985"
+    ]
+  },
+  {
+    "prompt": "The Berlin Wall fell in 1989. The Soviet Union collapsed in",
+    "correct": " 1991",
+    "incorrect": [
+      " 1989",
+      " 1993",
+      " 1988"
+    ]
+  },
+  {
+    "prompt": "World War Two ran from 1939 to",
+    "correct": " 1945",
+    "incorrect": [
+      " 1944",
+      " 1946",
+      " 1943"
+    ]
+  },
+  {
+    "prompt": "Water is composed of hydrogen and",
+    "correct": " oxygen",
+    "incorrect": [
+      " helium",
+      " nitrogen",
+      " carbon"
+    ]
+  },
+  {
+    "prompt": "The freezing point of water is 0 degrees",
+    "correct": " Celsius",
+    "incorrect": [
+      " Fahrenheit",
+      " Kelvin",
+      " Centigrade"
+    ]
+  },
+  {
+    "prompt": "In the metric system, temperature is measured in degrees",
+    "correct": " Celsius",
+    "incorrect": [
+      " Fahrenheit",
+      " Kelvin",
+      " Centigrade"
+    ]
+  },
+  {
+    "prompt": "The nucleus of an atom contains protons and",
+    "correct": " neutrons",
+    "incorrect": [
+      " electrons",
+      " quarks",
+      " photons"
+    ]
+  },
+  {
+    "prompt": "The speed of sound is slower than the speed of",
+    "correct": " light",
+    "incorrect": [
+      " sound",
+      " electricity",
+      " radio"
+    ]
+  },
+  {
+    "prompt": "Saturn is larger than Uranus, which is larger than",
+    "correct": " Neptune",
+    "incorrect": [
+      " Jupiter",
+      " Earth",
+      " Mars"
+    ]
+  },
+  {
+    "prompt": "Jupiter is the largest planet. Saturn is the second largest. Uranus is the",
+    "correct": " third",
+    "incorrect": [
+      " fourth",
+      " second",
+      " fifth"
+    ]
+  },
+  {
+    "prompt": "The boiling point of water is 100 degrees",
+    "correct": " Celsius",
+    "incorrect": [
+      " Fahrenheit",
+      " Kelvin",
+      " Centigrade"
+    ]
+  },
+  {
+    "prompt": "Electrolysis of water produces hydrogen and",
+    "correct": " oxygen",
+    "incorrect": [
+      " helium",
+      " nitrogen",
+      " carbon"
+    ]
+  },
+  {
+    "prompt": "The Sun and Jupiter are both composed mostly of hydrogen and",
+    "correct": " helium",
+    "incorrect": [
+      " oxygen",
+      " nitrogen",
+      " carbon"
+    ]
+  },
+  {
+    "prompt": "Carbon dioxide is a compound of carbon and",
+    "correct": " oxygen",
+    "incorrect": [
+      " nitrogen",
+      " hydrogen",
+      " helium"
+    ]
+  },
+  {
+    "prompt": "Protons have a positive charge. Electrons have a",
+    "correct": " negative",
+    "incorrect": [
+      " positive",
+      " neutral",
+      " zero"
+    ]
+  },
+  {
+    "prompt": "Every magnet has a north pole and a",
+    "correct": " south",
+    "incorrect": [
+      " negative",
+      " positive",
+      " east"
+    ]
+  },
+  {
+    "prompt": "Matter exists in three main states: solid, liquid, and",
+    "correct": " gas",
+    "incorrect": [
+      " plasma",
+      " solid",
+      " liquid"
+    ]
+  },
+  {
+    "prompt": "The currency of the United Kingdom is the",
+    "correct": " pound",
+    "incorrect": [
+      " euro",
+      " dollar",
+      " franc"
+    ]
+  }
+]

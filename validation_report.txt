@@ -1,0 +1,104 @@
+========================================================================
+VALIDATION SUMMARY REPORT
+========================================================================
+Candidates tested : 50
+Passed            : 22  (44.0%)
+Failed            : 28  (56.0%)
+
+Filter criteria:
+  Correct-answer first-token probability > 50%
+  Max foil probability > 10%
+
+── Correct probability — ALL candidates ──
+  n       : 50
+  min     : 0.0434
+  max     : 0.9995
+  mean    : 0.6016
+  median  : 0.5891
+
+── Correct probability — PASSED ──
+  n       : 22
+  min     : 0.5068
+  max     : 0.7509
+  mean    : 0.6069
+  median  : 0.5891
+
+── Max foil probability — PASSED ──
+  n       : 22
+  min     : 0.1016
+  max     : 0.2321
+  mean    : 0.1606
+  median  : 0.1496
+
+── PASSED examples ──
+  #    Corr   MaxFoil  Prompt → Answer  |  Foils
+------------------------------------------------------------------------
+  1  0.5904    0.1266  'The capital of Italy is Rome. The capital '→' Paris'  [' Marse':0.127]
+  2  0.6792    0.1128  'The capital of Spain is Madrid. The capita'→' Paris'  [' Marse':0.113]
+  3  0.6000    0.1470  'The capital of UK is London. The capital o'→' Paris'  [' Marse':0.147]
+  4  0.6380    0.1130  'The capital of UK is London. The capital o'→' Paris'  [' Marse':0.113]
+  5  0.5867    0.1948  'The capital of Germany is Berlin. The capi'→' Madrid'  [' Barcelona':0.195  ' Valencia':0.101]
+  6  0.5509    0.2050  'The capital of UK is London. The capital o'→' Madrid'  [' Barcelona':0.205  ' Valencia':0.137]
+  7  0.5704    0.2182  'The capital of UK is London. The capital o'→' Madrid'  [' Barcelona':0.218]
+  8  0.5305    0.2300  'The capital of Russia is Moscow. The capit'→' Madrid'  [' Barcelona':0.230]
+  9  0.5553    0.2023  'The capital of Russia is Moscow. The capit'→' Rome'  [' Milan':0.202]
+ 10  0.5068    0.1380  'The capital of UK is London. The capital o'→' Rome'  [' Milan':0.138  ' Florence':0.115]
+ 11  0.5365    0.1608  'The capital of UK is London. The capital o'→' Rome'  [' Milan':0.161]
+ 12  0.5472    0.1761  'The capital of China is Beijing. The capit'→' Berlin'  [' Frankfurt':0.176]
+ 13  0.5172    0.1647  'The capital of Spain is Madrid. The capita'→' Rome'  [' Milan':0.165  ' Florence':0.101]
+ 14  0.7509    0.1313  'Sir Isaac'→' Newton'  [' As':0.131]
+ 15  0.6974    0.1107  'The Mona Lisa was painted by Leonardo'→' da'  [' Di':0.111]
+ 16  0.6518    0.2246  'Water is composed of hydrogen and'→' oxygen'  [' helium':0.225]
+ 17  0.5878    0.1521  'The freezing point of water is 0 degrees'→' Celsius'  [' Fahrenheit':0.152  ' C':0.132]
+ 18  0.6664    0.1447  'In the metric system, temperature is measu'→' Celsius'  [' Fahrenheit':0.145  ' Kelvin':0.129]
+ 19  0.6713    0.2321  'The nucleus of an atom contains protons an'→' neutrons'  [' electrons':0.232]
+ 20  0.6765    0.1399  'The speed of sound is slower than the spee'→' light'  [' sound':0.140]
+ 21  0.7252    0.1016  'Saturn is larger than Uranus, which is lar'→' Neptune'  [' Jupiter':0.102]
+ 22  0.5154    0.1059  'Jupiter is the largest planet. Saturn is t'→' third'  [' fourth':0.106]
+
+── FAILED examples (reason) ──
+  #    Corr   MaxFoil  Prompt → Answer
+------------------------------------------------------------------------
+  1  0.7249    0.0000  'The capital of Italy is Rome. The capital '→' Paris'  [max_foil=0.000≤10%]
+  2  0.2817    0.1325  'The capital of UK is London. The capital o'→' Berlin'  [correct=0.282≤50%]
+  3  0.2439    0.1856  'The capital of France is Paris. The capita'→' Berlin'  [correct=0.244≤50%]
+  4  0.4881    0.0000  'The capital of Italy is Rome. The capital '→' Moscow'  [correct=0.488≤50%, max_foil=0.000≤10%]
+  5  0.5043    0.0000  'The capital of Japan is Tokyo. The capital'→' Moscow'  [max_foil=0.000≤10%]
+  6  0.4565    0.0000  'The capital of Germany is Berlin. The capi'→' Moscow'  [correct=0.457≤50%, max_foil=0.000≤10%]
+  7  0.5654    0.0000  'The capital of France is Paris. The capita'→' Tokyo'  [max_foil=0.000≤10%]
+  8  0.9818    0.0000  'Leibniz and Newton both developed calculus'→' Newton'  [max_foil=0.000≤10%]
+  9  0.9929    0.0000  'The Principia Mathematica of Sir Isaac'→' Newton'  [max_foil=0.000≤10%]
+ 10  0.0434    0.0000  'Vasco da'→' Gama'  [correct=0.043≤50%, max_foil=0.000≤10%]
+ 11  0.9995    0.0000  'The Mona Lisa and The Last Supper were pai'→' Vinci'  [max_foil=0.000≤10%]
+ 12  0.9946    0.0000  'The Communist Manifesto was written by Kar'→' Engels'  [max_foil=0.000≤10%]
+ 13  0.1366    0.0000  'Romeo and Juliet was written by William'→' Shakespeare'  [correct=0.137≤50%, max_foil=0.000≤10%]
+ 14  0.7794    0.0000  'Hamlet is a tragedy by William'→' Shakespeare'  [max_foil=0.000≤10%]
+ 15  0.9603    0.0000  'The Communist Manifesto was co-authored by'→' Engels'  [max_foil=0.000≤10%]
+ 16  0.5198    0.0000  'World War I ended in 1918. World War II en'→' 1945'  [max_foil=0.000≤10%]
+ 17  0.5674    0.0000  'The Declaration of Independence was signed'→' 1789'  [max_foil=0.000≤10%]
+ 18  0.2642    0.0000  'The Berlin Wall was built in 1961. The Ber'→' 1989'  [correct=0.264≤50%, max_foil=0.000≤10%]
+ 19  0.8505    0.0000  'The Berlin Wall fell in 1989. The Soviet U'→' 1991'  [max_foil=0.000≤10%]
+ 20  0.6356    0.0000  'World War Two ran from 1939 to'→' 1945'  [max_foil=0.000≤10%]
+ 21  0.1932    0.3675  'The boiling point of water is 100 degrees'→' Celsius'  [correct=0.193≤50%]
+ 22  0.6660    0.0000  'Electrolysis of water produces hydrogen an'→' oxygen'  [max_foil=0.000≤10%]
+ 23  0.9454    0.0000  'The Sun and Jupiter are both composed most'→' helium'  [max_foil=0.000≤10%]
+ 24  0.1966    0.4199  'Carbon dioxide is a compound of carbon and'→' oxygen'  [correct=0.197≤50%]
+ 25  0.8910    0.0000  'Protons have a positive charge. Electrons '→' negative'  [max_foil=0.000≤10%]
+ 26  0.8853    0.0000  'Every magnet has a north pole and a'→' south'  [max_foil=0.000≤10%]
+ 27  0.0687    0.2022  'Matter exists in three main states: solid,'→' gas'  [correct=0.069≤50%]
+ 28  0.8893    0.0000  'The currency of the United Kingdom is the'→' pound'  [max_foil=0.000≤10%]
+
+────────────────────────────────────────────────────────────────────────
+INTERPRETATION
+────────────────────────────────────────────────────────────────────────
+GPT-2 Small's factual recall exhibits a winner-take-all distribution:
+examples with a known correct answer often assign 80-99% probability
+to the correct token, leaving no competing token above 10%.  The
+examples that DO pass are those where a 'runner-up' token belongs to
+the same semantic category as the correct answer (a competing city,
+chemical element, measurement unit, planet, or name fragment).
+This scarcity is itself informative for feature-composition research.
+
+========================================================================
+Saved 22 validated examples → factual_recall_dataset.json
+========================================================================

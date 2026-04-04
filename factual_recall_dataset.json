@@ -1,0 +1,322 @@
+[
+  {
+    "prompt": "The capital of Italy is Rome. The capital of Spain is Madrid. The capital of France is",
+    "correct": " Paris",
+    "incorrect": [
+      " Marse"
+    ],
+    "metadata": {
+      "correct_prob": 0.5904,
+      "incorrect_probs": [
+        0.1266
+      ],
+      "max_incorrect_prob": 0.1266
+    }
+  },
+  {
+    "prompt": "The capital of Spain is Madrid. The capital of Germany is Berlin. The capital of France is",
+    "correct": " Paris",
+    "incorrect": [
+      " Marse"
+    ],
+    "metadata": {
+      "correct_prob": 0.6792,
+      "incorrect_probs": [
+        0.1128
+      ],
+      "max_incorrect_prob": 0.1128
+    }
+  },
+  {
+    "prompt": "The capital of UK is London. The capital of Germany is Berlin. The capital of France is",
+    "correct": " Paris",
+    "incorrect": [
+      " Marse"
+    ],
+    "metadata": {
+      "correct_prob": 0.6,
+      "incorrect_probs": [
+        0.147
+      ],
+      "max_incorrect_prob": 0.147
+    }
+  },
+  {
+    "prompt": "The capital of UK is London. The capital of Italy is Rome. The capital of France is",
+    "correct": " Paris",
+    "incorrect": [
+      " Marse"
+    ],
+    "metadata": {
+      "correct_prob": 0.638,
+      "incorrect_probs": [
+        0.113
+      ],
+      "max_incorrect_prob": 0.113
+    }
+  },
+  {
+    "prompt": "The capital of Germany is Berlin. The capital of France is Paris. The capital of Spain is",
+    "correct": " Madrid",
+    "incorrect": [
+      " Barcelona",
+      " Valencia"
+    ],
+    "metadata": {
+      "correct_prob": 0.5867,
+      "incorrect_probs": [
+        0.1948,
+        0.1007
+      ],
+      "max_incorrect_prob": 0.1948
+    }
+  },
+  {
+    "prompt": "The capital of UK is London. The capital of Germany is Berlin. The capital of Spain is",
+    "correct": " Madrid",
+    "incorrect": [
+      " Barcelona",
+      " Valencia"
+    ],
+    "metadata": {
+      "correct_prob": 0.5509,
+      "incorrect_probs": [
+        0.205,
+        0.1365
+      ],
+      "max_incorrect_prob": 0.205
+    }
+  },
+  {
+    "prompt": "The capital of UK is London. The capital of France is Paris. The capital of Spain is",
+    "correct": " Madrid",
+    "incorrect": [
+      " Barcelona"
+    ],
+    "metadata": {
+      "correct_prob": 0.5704,
+      "incorrect_probs": [
+        0.2182
+      ],
+      "max_incorrect_prob": 0.2182
+    }
+  },
+  {
+    "prompt": "The capital of Russia is Moscow. The capital of Italy is Rome. The capital of Spain is",
+    "correct": " Madrid",
+    "incorrect": [
+      " Barcelona"
+    ],
+    "metadata": {
+      "correct_prob": 0.5305,
+      "incorrect_probs": [
+        0.23
+      ],
+      "max_incorrect_prob": 0.23
+    }
+  },
+  {
+    "prompt": "The capital of Russia is Moscow. The capital of Spain is Madrid. The capital of Italy is",
+    "correct": " Rome",
+    "incorrect": [
+      " Milan"
+    ],
+    "metadata": {
+      "correct_prob": 0.5553,
+      "incorrect_probs": [
+        0.2023
+      ],
+      "max_incorrect_prob": 0.2023
+    }
+  },
+  {
+    "prompt": "The capital of UK is London. The capital of Spain is Madrid. The capital of Italy is",
+    "correct": " Rome",
+    "incorrect": [
+      " Milan",
+      " Florence"
+    ],
+    "metadata": {
+      "correct_prob": 0.5068,
+      "incorrect_probs": [
+        0.138,
+        0.1154
+      ],
+      "max_incorrect_prob": 0.138
+    }
+  },
+  {
+    "prompt": "The capital of UK is London. The capital of France is Paris. The capital of Italy is",
+    "correct": " Rome",
+    "incorrect": [
+      " Milan"
+    ],
+    "metadata": {
+      "correct_prob": 0.5365,
+      "incorrect_probs": [
+        0.1608
+      ],
+      "max_incorrect_prob": 0.1608
+    }
+  },
+  {
+    "prompt": "The capital of China is Beijing. The capital of Russia is Moscow. The capital of Germany is",
+    "correct": " Berlin",
+    "incorrect": [
+      " Frankfurt"
+    ],
+    "metadata": {
+      "correct_prob": 0.5472,
+      "incorrect_probs": [
+        0.1761
+      ],
+      "max_incorrect_prob": 0.1761
+    }
+  },
+  {
+    "prompt": "The capital of Spain is Madrid. The capital of France is Paris. The capital of Italy is",
+    "correct": " Rome",
+    "incorrect": [
+      " Milan",
+      " Florence"
+    ],
+    "metadata": {
+      "correct_prob": 0.5172,
+      "incorrect_probs": [
+        0.1647,
+        0.1006
+      ],
+      "max_incorrect_prob": 0.1647
+    }
+  },
+  {
+    "prompt": "Sir Isaac",
+    "correct": " Newton",
+    "incorrect": [
+      " As"
+    ],
+    "metadata": {
+      "correct_prob": 0.7509,
+      "incorrect_probs": [
+        0.1313
+      ],
+      "max_incorrect_prob": 0.1313
+    }
+  },
+  {
+    "prompt": "The Mona Lisa was painted by Leonardo",
+    "correct": " da",
+    "incorrect": [
+      " Di"
+    ],
+    "metadata": {
+      "correct_prob": 0.6974,
+      "incorrect_probs": [
+        0.1107
+      ],
+      "max_incorrect_prob": 0.1107
+    }
+  },
+  {
+    "prompt": "Water is composed of hydrogen and",
+    "correct": " oxygen",
+    "incorrect": [
+      " helium"
+    ],
+    "metadata": {
+      "correct_prob": 0.6518,
+      "incorrect_probs": [
+        0.2246
+      ],
+      "max_incorrect_prob": 0.2246
+    }
+  },
+  {
+    "prompt": "The freezing point of water is 0 degrees",
+    "correct": " Celsius",
+    "incorrect": [
+      " Fahrenheit",
+      " C"
+    ],
+    "metadata": {
+      "correct_prob": 0.5878,
+      "incorrect_probs": [
+        0.1521,
+        0.1319
+      ],
+      "max_incorrect_prob": 0.1521
+    }
+  },
+  {
+    "prompt": "In the metric system, temperature is measured in degrees",
+    "correct": " Celsius",
+    "incorrect": [
+      " Fahrenheit",
+      " Kelvin"
+    ],
+    "metadata": {
+      "correct_prob": 0.6664,
+      "incorrect_probs": [
+        0.1447,
+        0.1293
+      ],
+      "max_incorrect_prob": 0.1447
+    }
+  },
+  {
+    "prompt": "The nucleus of an atom contains protons and",
+    "correct": " neutrons",
+    "incorrect": [
+      " electrons"
+    ],
+    "metadata": {
+      "correct_prob": 0.6713,
+      "incorrect_probs": [
+        0.2321
+      ],
+      "max_incorrect_prob": 0.2321
+    }
+  },
+  {
+    "prompt": "The speed of sound is slower than the speed of",
+    "correct": " light",
+    "incorrect": [
+      " sound"
+    ],
+    "metadata": {
+      "correct_prob": 0.6765,
+      "incorrect_probs": [
+        0.1399
+      ],
+      "max_incorrect_prob": 0.1399
+    }
+  },
+  {
+    "prompt": "Saturn is larger than Uranus, which is larger than",
+    "correct": " Neptune",
+    "incorrect": [
+      " Jupiter"
+    ],
+    "metadata": {
+      "correct_prob": 0.7252,
+      "incorrect_probs": [
+        0.1016
+      ],
+      "max_incorrect_prob": 0.1016
+    }
+  },
+  {
+    "prompt": "Jupiter is the largest planet. Saturn is the second largest. Uranus is the",
+    "correct": " third",
+    "incorrect": [
+      " fourth"
+    ],
+    "metadata": {
+      "correct_prob": 0.5154,
+      "incorrect_probs": [
+        0.1059
+      ],
+      "max_incorrect_prob": 0.1059
+    }
+  }
+]

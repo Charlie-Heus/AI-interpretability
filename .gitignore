@@ -1,0 +1,8 @@
+.claude/
+memory/
+probe_candidates.py
+probe_v3.py
+probe_v4.py
+probe_v5.py
+__pycache__/
+*.pyc
