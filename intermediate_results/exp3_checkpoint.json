@@ -1,0 +1,902 @@
+[
+  {
+    "feat_i_idx": 0,
+    "feat_j_idx": 1,
+    "feat_i_name": "Layer 10, Head 0",
+    "feat_j_name": "Layer 10, Head 6",
+    "drop_ab_overall": 0.1554,
+    "drop_a_overall": 0.0002,
+    "drop_b_overall": 0.1484,
+    "interaction_overall": 0.0068,
+    "interaction_by_cat": {
+      "attributes": -0.0009,
+      "geography": 0.0112,
+      "history": 0.0046
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.007,
+      "geography": 0.2829,
+      "history": -0.1541
+    }
+  },
+  {
+    "feat_i_idx": 0,
+    "feat_j_idx": 2,
+    "feat_i_name": "Layer 10, Head 0",
+    "feat_j_name": "Layer 8, Neuron 538",
+    "drop_ab_overall": -0.1574,
+    "drop_a_overall": 0.0002,
+    "drop_b_overall": -0.1422,
+    "interaction_overall": -0.0154,
+    "interaction_by_cat": {
+      "attributes": 0.0064,
+      "geography": -0.0301,
+      "history": 0.0034
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0366,
+      "geography": -0.2823,
+      "history": -0.0244
+    }
+  },
+  {
+    "feat_i_idx": 0,
+    "feat_j_idx": 3,
+    "feat_i_name": "Layer 10, Head 0",
+    "feat_j_name": "Layer 8, Neuron 1028",
+    "drop_ab_overall": -0.1514,
+    "drop_a_overall": 0.0002,
+    "drop_b_overall": -0.125,
+    "interaction_overall": -0.0266,
+    "interaction_by_cat": {
+      "attributes": 0.0008,
+      "geography": -0.0455,
+      "history": 0.0007
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0104,
+      "geography": -0.2476,
+      "history": -0.092
+    }
+  },
+  {
+    "feat_i_idx": 0,
+    "feat_j_idx": 4,
+    "feat_i_name": "Layer 10, Head 0",
+    "feat_j_name": "Layer 9, Head 2",
+    "drop_ab_overall": -0.0207,
+    "drop_a_overall": 0.0002,
+    "drop_b_overall": -0.0224,
+    "interaction_overall": 0.0015,
+    "interaction_by_cat": {
+      "attributes": 0.0073,
+      "geography": -0.0011,
+      "history": -0.0016
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0368,
+      "geography": -0.0335,
+      "history": -0.1384
+    }
+  },
+  {
+    "feat_i_idx": 0,
+    "feat_j_idx": 5,
+    "feat_i_name": "Layer 10, Head 0",
+    "feat_j_name": "Layer 8, Neuron 1460",
+    "drop_ab_overall": 0.0599,
+    "drop_a_overall": 0.0002,
+    "drop_b_overall": 0.0514,
+    "interaction_overall": 0.0083,
+    "interaction_by_cat": {
+      "attributes": 0.0005,
+      "geography": 0.0136,
+      "history": 0.0011
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0083,
+      "geography": 0.1088,
+      "history": -0.0778
+    }
+  },
+  {
+    "feat_i_idx": 0,
+    "feat_j_idx": 6,
+    "feat_i_name": "Layer 10, Head 0",
+    "feat_j_name": "Layer 8, Neuron 2108",
+    "drop_ab_overall": -0.0383,
+    "drop_a_overall": 0.0002,
+    "drop_b_overall": -0.035,
+    "interaction_overall": -0.0035,
+    "interaction_by_cat": {
+      "attributes": -0.005,
+      "geography": -0.0023,
+      "history": -0.0055
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.015,
+      "geography": -0.0485,
+      "history": -0.0533
+    }
+  },
+  {
+    "feat_i_idx": 0,
+    "feat_j_idx": 7,
+    "feat_i_name": "Layer 10, Head 0",
+    "feat_j_name": "Layer 9, Head 5",
+    "drop_ab_overall": -0.0372,
+    "drop_a_overall": 0.0002,
+    "drop_b_overall": -0.0447,
+    "interaction_overall": 0.0073,
+    "interaction_by_cat": {
+      "attributes": -0.0004,
+      "geography": 0.0133,
+      "history": -0.0053
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.0467,
+      "geography": -0.0195,
+      "history": -0.119
+    }
+  },
+  {
+    "feat_i_idx": 0,
+    "feat_j_idx": 8,
+    "feat_i_name": "Layer 10, Head 0",
+    "feat_j_name": "Layer 8, Neuron 1458",
+    "drop_ab_overall": 0.0736,
+    "drop_a_overall": 0.0002,
+    "drop_b_overall": 0.0712,
+    "interaction_overall": 0.0022,
+    "interaction_by_cat": {
+      "attributes": -0.0008,
+      "geography": 0.0042,
+      "history": -0.0001
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.012,
+      "geography": 0.1293,
+      "history": -0.0726
+    }
+  },
+  {
+    "feat_i_idx": 0,
+    "feat_j_idx": 9,
+    "feat_i_name": "Layer 10, Head 0",
+    "feat_j_name": "Layer 8, Neuron 1972",
+    "drop_ab_overall": 0.0338,
+    "drop_a_overall": 0.0002,
+    "drop_b_overall": 0.0246,
+    "interaction_overall": 0.009,
+    "interaction_by_cat": {
+      "attributes": 0.0003,
+      "geography": 0.0151,
+      "history": 0.0011
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0081,
+      "geography": 0.0694,
+      "history": -0.107
+    }
+  },
+  {
+    "feat_i_idx": 1,
+    "feat_j_idx": 2,
+    "feat_i_name": "Layer 10, Head 6",
+    "feat_j_name": "Layer 8, Neuron 538",
+    "drop_ab_overall": 0.0034,
+    "drop_a_overall": 0.1484,
+    "drop_b_overall": -0.1422,
+    "interaction_overall": -0.0028,
+    "interaction_by_cat": {
+      "attributes": 0.0006,
+      "geography": -0.0055,
+      "history": 0.0023
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0239,
+      "geography": -0.0024,
+      "history": -0.0306
+    }
+  },
+  {
+    "feat_i_idx": 1,
+    "feat_j_idx": 3,
+    "feat_i_name": "Layer 10, Head 6",
+    "feat_j_name": "Layer 8, Neuron 1028",
+    "drop_ab_overall": 0.0393,
+    "drop_a_overall": 0.1484,
+    "drop_b_overall": -0.125,
+    "interaction_overall": 0.0159,
+    "interaction_by_cat": {
+      "attributes": 0.0001,
+      "geography": 0.0269,
+      "history": -0.0002
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0028,
+      "geography": 0.0801,
+      "history": -0.098
+    }
+  },
+  {
+    "feat_i_idx": 1,
+    "feat_j_idx": 4,
+    "feat_i_name": "Layer 10, Head 6",
+    "feat_j_name": "Layer 9, Head 2",
+    "drop_ab_overall": 0.1532,
+    "drop_a_overall": 0.1484,
+    "drop_b_overall": -0.0224,
+    "interaction_overall": 0.0272,
+    "interaction_by_cat": {
+      "attributes": -0.0001,
+      "geography": 0.0466,
+      "history": -0.0028
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0225,
+      "geography": 0.2695,
+      "history": -0.1447
+    }
+  },
+  {
+    "feat_i_idx": 1,
+    "feat_j_idx": 5,
+    "feat_i_name": "Layer 10, Head 6",
+    "feat_j_name": "Layer 8, Neuron 1460",
+    "drop_ab_overall": 0.2024,
+    "drop_a_overall": 0.1484,
+    "drop_b_overall": 0.0514,
+    "interaction_overall": 0.0026,
+    "interaction_by_cat": {
+      "attributes": -0.0,
+      "geography": 0.0045,
+      "history": -0.0002
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0009,
+      "geography": 0.355,
+      "history": -0.0842
+    }
+  },
+  {
+    "feat_i_idx": 1,
+    "feat_j_idx": 6,
+    "feat_i_name": "Layer 10, Head 6",
+    "feat_j_name": "Layer 8, Neuron 2108",
+    "drop_ab_overall": 0.1067,
+    "drop_a_overall": 0.1484,
+    "drop_b_overall": -0.035,
+    "interaction_overall": -0.0067,
+    "interaction_by_cat": {
+      "attributes": 0.0005,
+      "geography": -0.0118,
+      "history": 0.0012
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.0164,
+      "geography": 0.1973,
+      "history": -0.0517
+    }
+  },
+  {
+    "feat_i_idx": 1,
+    "feat_j_idx": 7,
+    "feat_i_name": "Layer 10, Head 6",
+    "feat_j_name": "Layer 9, Head 5",
+    "drop_ab_overall": 0.1203,
+    "drop_a_overall": 0.1484,
+    "drop_b_overall": -0.0447,
+    "interaction_overall": 0.0166,
+    "interaction_by_cat": {
+      "attributes": 0.001,
+      "geography": 0.0282,
+      "history": -0.0047
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.0522,
+      "geography": 0.2507,
+      "history": -0.1235
+    }
+  },
+  {
+    "feat_i_idx": 1,
+    "feat_j_idx": 8,
+    "feat_i_name": "Layer 10, Head 6",
+    "feat_j_name": "Layer 8, Neuron 1458",
+    "drop_ab_overall": 0.2053,
+    "drop_a_overall": 0.1484,
+    "drop_b_overall": 0.0712,
+    "interaction_overall": -0.0143,
+    "interaction_by_cat": {
+      "attributes": 0.0,
+      "geography": -0.0242,
+      "history": -0.0001
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0059,
+      "geography": 0.3562,
+      "history": -0.0777
+    }
+  },
+  {
+    "feat_i_idx": 1,
+    "feat_j_idx": 9,
+    "feat_i_name": "Layer 10, Head 6",
+    "feat_j_name": "Layer 8, Neuron 1972",
+    "drop_ab_overall": 0.1713,
+    "drop_a_overall": 0.1484,
+    "drop_b_overall": 0.0246,
+    "interaction_overall": -0.0017,
+    "interaction_by_cat": {
+      "attributes": 0.0001,
+      "geography": -0.0026,
+      "history": -0.0006
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.001,
+      "geography": 0.307,
+      "history": -0.1138
+    }
+  },
+  {
+    "feat_i_idx": 2,
+    "feat_j_idx": 3,
+    "feat_i_name": "Layer 8, Neuron 538",
+    "feat_j_name": "Layer 8, Neuron 1028",
+    "drop_ab_overall": -0.2566,
+    "drop_a_overall": -0.1422,
+    "drop_b_overall": -0.125,
+    "interaction_overall": 0.0106,
+    "interaction_by_cat": {
+      "attributes": 0.0005,
+      "geography": 0.0177,
+      "history": 0.0002
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0255,
+      "geography": -0.453,
+      "history": 0.0333
+    }
+  },
+  {
+    "feat_i_idx": 2,
+    "feat_j_idx": 4,
+    "feat_i_name": "Layer 8, Neuron 538",
+    "feat_j_name": "Layer 9, Head 2",
+    "drop_ab_overall": -0.1609,
+    "drop_a_overall": -0.1422,
+    "drop_b_overall": -0.0224,
+    "interaction_overall": 0.0037,
+    "interaction_by_cat": {
+      "attributes": -0.0026,
+      "geography": 0.0071,
+      "history": 0.0031
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0423,
+      "geography": -0.2939,
+      "history": -0.0079
+    }
+  },
+  {
+    "feat_i_idx": 2,
+    "feat_j_idx": 5,
+    "feat_i_name": "Layer 8, Neuron 538",
+    "feat_j_name": "Layer 8, Neuron 1460",
+    "drop_ab_overall": -0.0993,
+    "drop_a_overall": -0.1422,
+    "drop_b_overall": 0.0514,
+    "interaction_overall": -0.0085,
+    "interaction_by_cat": {
+      "attributes": 0.0005,
+      "geography": -0.0147,
+      "history": 0.0007
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0237,
+      "geography": -0.1881,
+      "history": 0.0476
+    }
+  },
+  {
+    "feat_i_idx": 2,
+    "feat_j_idx": 6,
+    "feat_i_name": "Layer 8, Neuron 538",
+    "feat_j_name": "Layer 8, Neuron 2108",
+    "drop_ab_overall": -0.1919,
+    "drop_a_overall": -0.1422,
+    "drop_b_overall": -0.035,
+    "interaction_overall": -0.0147,
+    "interaction_by_cat": {
+      "attributes": -0.0015,
+      "geography": -0.0238,
+      "history": -0.0016
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0039,
+      "geography": -0.3386,
+      "history": 0.0764
+    }
+  },
+  {
+    "feat_i_idx": 2,
+    "feat_j_idx": 7,
+    "feat_i_name": "Layer 8, Neuron 538",
+    "feat_j_name": "Layer 9, Head 5",
+    "drop_ab_overall": -0.1734,
+    "drop_a_overall": -0.1422,
+    "drop_b_overall": -0.0447,
+    "interaction_overall": 0.0135,
+    "interaction_by_cat": {
+      "attributes": -0.0038,
+      "geography": 0.025,
+      "history": -0.001
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.0347,
+      "geography": -0.2764,
+      "history": 0.0111
+    }
+  },
+  {
+    "feat_i_idx": 2,
+    "feat_j_idx": 8,
+    "feat_i_name": "Layer 8, Neuron 538",
+    "feat_j_name": "Layer 8, Neuron 1458",
+    "drop_ab_overall": -0.0879,
+    "drop_a_overall": -0.1422,
+    "drop_b_overall": 0.0712,
+    "interaction_overall": -0.0169,
+    "interaction_by_cat": {
+      "attributes": -0.0004,
+      "geography": -0.0285,
+      "history": 0.0
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0278,
+      "geography": -0.172,
+      "history": 0.0533
+    }
+  },
+  {
+    "feat_i_idx": 2,
+    "feat_j_idx": 9,
+    "feat_i_name": "Layer 8, Neuron 538",
+    "feat_j_name": "Layer 8, Neuron 1972",
+    "drop_ab_overall": -0.1262,
+    "drop_a_overall": -0.1422,
+    "drop_b_overall": 0.0246,
+    "interaction_overall": -0.0086,
+    "interaction_by_cat": {
+      "attributes": 0.0002,
+      "geography": -0.0146,
+      "history": 0.0004
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0234,
+      "geography": -0.2289,
+      "history": 0.0181
+    }
+  },
+  {
+    "feat_i_idx": 3,
+    "feat_j_idx": 4,
+    "feat_i_name": "Layer 8, Neuron 1028",
+    "feat_j_name": "Layer 9, Head 2",
+    "drop_ab_overall": -0.1391,
+    "drop_a_overall": -0.125,
+    "drop_b_overall": -0.0224,
+    "interaction_overall": 0.0083,
+    "interaction_by_cat": {
+      "attributes": 0.0012,
+      "geography": 0.0134,
+      "history": 0.0001
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0255,
+      "geography": -0.2375,
+      "history": -0.0758
+    }
+  },
+  {
+    "feat_i_idx": 3,
+    "feat_j_idx": 5,
+    "feat_i_name": "Layer 8, Neuron 1028",
+    "feat_j_name": "Layer 8, Neuron 1460",
+    "drop_ab_overall": -0.0648,
+    "drop_a_overall": -0.125,
+    "drop_b_overall": 0.0514,
+    "interaction_overall": 0.0088,
+    "interaction_by_cat": {
+      "attributes": 0.0002,
+      "geography": 0.015,
+      "history": -0.0
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0028,
+      "geography": -0.1083,
+      "history": -0.018
+    }
+  },
+  {
+    "feat_i_idx": 3,
+    "feat_j_idx": 6,
+    "feat_i_name": "Layer 8, Neuron 1028",
+    "feat_j_name": "Layer 8, Neuron 2108",
+    "drop_ab_overall": -0.1755,
+    "drop_a_overall": -0.125,
+    "drop_b_overall": -0.035,
+    "interaction_overall": -0.0155,
+    "interaction_by_cat": {
+      "attributes": -0.0002,
+      "geography": -0.0259,
+      "history": 0.0001
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.0154,
+      "geography": -0.2906,
+      "history": 0.0132
+    }
+  },
+  {
+    "feat_i_idx": 3,
+    "feat_j_idx": 7,
+    "feat_i_name": "Layer 8, Neuron 1028",
+    "feat_j_name": "Layer 9, Head 5",
+    "drop_ab_overall": -0.1434,
+    "drop_a_overall": -0.125,
+    "drop_b_overall": -0.0447,
+    "interaction_overall": 0.0263,
+    "interaction_by_cat": {
+      "attributes": -0.001,
+      "geography": 0.0454,
+      "history": -0.0017
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.0525,
+      "geography": -0.2059,
+      "history": -0.0545
+    }
+  },
+  {
+    "feat_i_idx": 3,
+    "feat_j_idx": 8,
+    "feat_i_name": "Layer 8, Neuron 1028",
+    "feat_j_name": "Layer 8, Neuron 1458",
+    "drop_ab_overall": -0.0624,
+    "drop_a_overall": -0.125,
+    "drop_b_overall": 0.0712,
+    "interaction_overall": -0.0086,
+    "interaction_by_cat": {
+      "attributes": -0.0,
+      "geography": -0.0144,
+      "history": 0.0
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0076,
+      "geography": -0.1078,
+      "history": -0.0116
+    }
+  },
+  {
+    "feat_i_idx": 3,
+    "feat_j_idx": 9,
+    "feat_i_name": "Layer 8, Neuron 1028",
+    "feat_j_name": "Layer 8, Neuron 1972",
+    "drop_ab_overall": -0.0849,
+    "drop_a_overall": -0.125,
+    "drop_b_overall": 0.0246,
+    "interaction_overall": 0.0155,
+    "interaction_by_cat": {
+      "attributes": 0.0001,
+      "geography": 0.0263,
+      "history": -0.0
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0027,
+      "geography": -0.1379,
+      "history": -0.0472
+    }
+  },
+  {
+    "feat_i_idx": 4,
+    "feat_j_idx": 5,
+    "feat_i_name": "Layer 9, Head 2",
+    "feat_j_name": "Layer 8, Neuron 1460",
+    "drop_ab_overall": 0.0298,
+    "drop_a_overall": -0.0224,
+    "drop_b_overall": 0.0514,
+    "interaction_overall": 0.0008,
+    "interaction_by_cat": {
+      "attributes": -0.0001,
+      "geography": 0.0016,
+      "history": -0.0004
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0224,
+      "geography": 0.048,
+      "history": -0.0625
+    }
+  },
+  {
+    "feat_i_idx": 4,
+    "feat_j_idx": 6,
+    "feat_i_name": "Layer 9, Head 2",
+    "feat_j_name": "Layer 8, Neuron 2108",
+    "drop_ab_overall": -0.0539,
+    "drop_a_overall": -0.0224,
+    "drop_b_overall": -0.035,
+    "interaction_overall": 0.0035,
+    "interaction_by_cat": {
+      "attributes": 0.0113,
+      "geography": -0.0005,
+      "history": 0.0024
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.016,
+      "geography": -0.0955,
+      "history": -0.0286
+    }
+  },
+  {
+    "feat_i_idx": 4,
+    "feat_j_idx": 7,
+    "feat_i_name": "Layer 9, Head 2",
+    "feat_j_name": "Layer 9, Head 5",
+    "drop_ab_overall": -0.0617,
+    "drop_a_overall": -0.0224,
+    "drop_b_overall": -0.0447,
+    "interaction_overall": 0.0054,
+    "interaction_by_cat": {
+      "attributes": -0.0048,
+      "geography": 0.0123,
+      "history": -0.0039
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.0364,
+      "geography": -0.0693,
+      "history": -0.1008
+    }
+  },
+  {
+    "feat_i_idx": 4,
+    "feat_j_idx": 8,
+    "feat_i_name": "Layer 9, Head 2",
+    "feat_j_name": "Layer 8, Neuron 1458",
+    "drop_ab_overall": 0.0594,
+    "drop_a_overall": -0.0224,
+    "drop_b_overall": 0.0712,
+    "interaction_overall": 0.0106,
+    "interaction_by_cat": {
+      "attributes": -0.0008,
+      "geography": 0.0184,
+      "history": -0.0001
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0267,
+      "geography": 0.0947,
+      "history": -0.0558
+    }
+  },
+  {
+    "feat_i_idx": 4,
+    "feat_j_idx": 9,
+    "feat_i_name": "Layer 9, Head 2",
+    "feat_j_name": "Layer 8, Neuron 1972",
+    "drop_ab_overall": -0.0023,
+    "drop_a_overall": -0.0224,
+    "drop_b_overall": 0.0246,
+    "interaction_overall": -0.0045,
+    "interaction_by_cat": {
+      "attributes": 0.0001,
+      "geography": -0.0075,
+      "history": -0.0004
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0226,
+      "geography": -0.002,
+      "history": -0.0917
+    }
+  },
+  {
+    "feat_i_idx": 5,
+    "feat_j_idx": 6,
+    "feat_i_name": "Layer 8, Neuron 1460",
+    "feat_j_name": "Layer 8, Neuron 2108",
+    "drop_ab_overall": 0.0141,
+    "drop_a_overall": 0.0514,
+    "drop_b_overall": -0.035,
+    "interaction_overall": -0.0023,
+    "interaction_by_cat": {
+      "attributes": -0.0005,
+      "geography": -0.0035,
+      "history": -0.0003
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.0175,
+      "geography": 0.0291,
+      "history": 0.0266
+    }
+  },
+  {
+    "feat_i_idx": 5,
+    "feat_j_idx": 7,
+    "feat_i_name": "Layer 8, Neuron 1460",
+    "feat_j_name": "Layer 9, Head 5",
+    "drop_ab_overall": 0.0173,
+    "drop_a_overall": 0.0514,
+    "drop_b_overall": -0.0447,
+    "interaction_overall": 0.0106,
+    "interaction_by_cat": {
+      "attributes": 0.0005,
+      "geography": 0.018,
+      "history": -0.0019
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.0528,
+      "geography": 0.064,
+      "history": -0.0409
+    }
+  },
+  {
+    "feat_i_idx": 5,
+    "feat_j_idx": 8,
+    "feat_i_name": "Layer 8, Neuron 1460",
+    "feat_j_name": "Layer 8, Neuron 1458",
+    "drop_ab_overall": 0.1181,
+    "drop_a_overall": 0.0514,
+    "drop_b_overall": 0.0712,
+    "interaction_overall": -0.0045,
+    "interaction_by_cat": {
+      "attributes": 0.0,
+      "geography": -0.0075,
+      "history": 0.0001
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0058,
+      "geography": 0.1964,
+      "history": 0.0023
+    }
+  },
+  {
+    "feat_i_idx": 5,
+    "feat_j_idx": 9,
+    "feat_i_name": "Layer 8, Neuron 1460",
+    "feat_j_name": "Layer 8, Neuron 1972",
+    "drop_ab_overall": 0.0773,
+    "drop_a_overall": 0.0514,
+    "drop_b_overall": 0.0246,
+    "interaction_overall": 0.0013,
+    "interaction_by_cat": {
+      "attributes": 0.0001,
+      "geography": 0.0023,
+      "history": -0.0001
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0009,
+      "geography": 0.1354,
+      "history": -0.0335
+    }
+  },
+  {
+    "feat_i_idx": 6,
+    "feat_j_idx": 7,
+    "feat_i_name": "Layer 8, Neuron 2108",
+    "feat_j_name": "Layer 9, Head 5",
+    "drop_ab_overall": -0.1001,
+    "drop_a_overall": -0.035,
+    "drop_b_overall": -0.0447,
+    "interaction_overall": -0.0204,
+    "interaction_by_cat": {
+      "attributes": 0.0071,
+      "geography": -0.0378,
+      "history": -0.0037
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.064,
+      "geography": -0.1332,
+      "history": -0.0116
+    }
+  },
+  {
+    "feat_i_idx": 6,
+    "feat_j_idx": 8,
+    "feat_i_name": "Layer 8, Neuron 2108",
+    "feat_j_name": "Layer 8, Neuron 1458",
+    "drop_ab_overall": 0.0355,
+    "drop_a_overall": -0.035,
+    "drop_b_overall": 0.0712,
+    "interaction_overall": -0.0007,
+    "interaction_by_cat": {
+      "attributes": 0.0007,
+      "geography": -0.0015,
+      "history": -0.0001
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.0113,
+      "geography": 0.061,
+      "history": 0.0332
+    }
+  },
+  {
+    "feat_i_idx": 6,
+    "feat_j_idx": 9,
+    "feat_i_name": "Layer 8, Neuron 2108",
+    "feat_j_name": "Layer 8, Neuron 1972",
+    "drop_ab_overall": -0.011,
+    "drop_a_overall": -0.035,
+    "drop_b_overall": 0.0246,
+    "interaction_overall": -0.0006,
+    "interaction_by_cat": {
+      "attributes": -0.0003,
+      "geography": -0.0006,
+      "history": -0.0004
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.0173,
+      "geography": -0.0089,
+      "history": -0.0027
+    }
+  },
+  {
+    "feat_i_idx": 7,
+    "feat_j_idx": 8,
+    "feat_i_name": "Layer 9, Head 5",
+    "feat_j_name": "Layer 8, Neuron 1458",
+    "drop_ab_overall": -0.0064,
+    "drop_a_overall": -0.0447,
+    "drop_b_overall": 0.0712,
+    "interaction_overall": -0.0329,
+    "interaction_by_cat": {
+      "attributes": 0.0002,
+      "geography": -0.056,
+      "history": 0.0012
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.0481,
+      "geography": 0.0199,
+      "history": -0.0314
+    }
+  },
+  {
+    "feat_i_idx": 7,
+    "feat_j_idx": 9,
+    "feat_i_name": "Layer 9, Head 5",
+    "feat_j_name": "Layer 8, Neuron 1972",
+    "drop_ab_overall": -0.0162,
+    "drop_a_overall": -0.0447,
+    "drop_b_overall": 0.0246,
+    "interaction_overall": 0.0039,
+    "interaction_by_cat": {
+      "attributes": 0.0003,
+      "geography": 0.0066,
+      "history": -0.0008
+    },
+    "drop_ab_by_cat": {
+      "attributes": -0.053,
+      "geography": 0.0117,
+      "history": -0.069
+    }
+  },
+  {
+    "feat_i_idx": 8,
+    "feat_j_idx": 9,
+    "feat_i_name": "Layer 8, Neuron 1458",
+    "feat_j_name": "Layer 8, Neuron 1972",
+    "drop_ab_overall": 0.0913,
+    "drop_a_overall": 0.0712,
+    "drop_b_overall": 0.0246,
+    "interaction_overall": -0.0045,
+    "interaction_by_cat": {
+      "attributes": 0.0,
+      "geography": -0.0075,
+      "history": -0.0
+    },
+    "drop_ab_by_cat": {
+      "attributes": 0.0058,
+      "geography": 0.1555,
+      "history": -0.027
+    }
+  }
+]

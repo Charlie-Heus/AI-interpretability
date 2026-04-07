@@ -109,10 +109,12 @@ def _attribute_example(prompt: str, correct_str: str, incorrect_str: str
         for n in range(N_NEURONS):
             mlp_attrs[(layer, n)] = contrib[n].item()
 
-    # Attention heads
+    # Attention heads — compute per-head output via hook_z @ W_O (equiv. to hook_result)
     attn_attrs: dict[tuple, float] = {}
     for layer in ATTN_LAYERS:
-        head_out = cache[f"blocks.{layer}.attn.hook_result"][0, -1, :, :]  # [n_heads, d_model]
+        z    = cache[f"blocks.{layer}.attn.hook_z"][0, -1, :, :]           # [n_heads, d_head]
+        W_O  = model.blocks[layer].attn.W_O.detach()                        # [n_heads, d_head, d_model]
+        head_out = torch.einsum("hd,hdm->hm", z, W_O)                      # [n_heads, d_model]
         contrib  = head_out @ u_diff                                         # [n_heads]
         for h in range(N_HEADS):
             attn_attrs[(layer, h)] = contrib[h].item()
@@ -260,8 +262,8 @@ def _run_with_zero_ablation(prompt: str, feature: dict
         def hook_fn(value, hook):
             value[:, :, idx] = 0.0
             return value
-    else:  # attn head
-        hook_name = f"blocks.{layer}.attn.hook_result"
+    else:  # attn head — zero hook_z so head_out = z @ W_O becomes 0
+        hook_name = f"blocks.{layer}.attn.hook_z"
         def hook_fn(value, hook):
             value[:, :, idx, :] = 0.0
             return value
@@ -272,9 +274,10 @@ def _run_with_zero_ablation(prompt: str, feature: dict
 
 
 def _eval_on_dataset(dataset,
-                     logits_fn) -> list[tuple[bool, str]]:
+                     logits_fn) -> list[tuple[float, str]]:
     """
-    Runs logits_fn on every example and returns (correct_predicted, category).
+    Runs logits_fn on every example and returns (logit_diff, category).
+    logit_diff = logit(correct) - logit(foil); positive means correct wins.
     logits_fn(item) must return a logits tensor.
     dataset may be a plain list or a tqdm-wrapped iterable.
     """
@@ -284,18 +287,18 @@ def _eval_on_dataset(dataset,
         i_id = tok_id(item["incorrect"][0])
         with torch.no_grad():
             logits = logits_fn(item)
-        correct = bool((logits[0, -1, c_id] > logits[0, -1, i_id]).item())
-        results.append((correct, item["category"]))
+        logit_diff = (logits[0, -1, c_id] - logits[0, -1, i_id]).item()
+        results.append((logit_diff, item["category"]))
     return results
 
 
-def _accuracy_summary(results: list[tuple[bool, str]],
-                       categories: list[str]) -> dict:
-    overall = sum(c for c, _ in results) / len(results)
+def _logit_diff_summary(results: list[tuple[float, str]],
+                        categories: list[str]) -> dict:
+    overall = float(np.mean([d for d, _ in results]))
     by_cat  = {}
     for cat in categories:
-        subset = [c for c, cat2 in results if cat2 == cat]
-        by_cat[cat] = (sum(subset) / len(subset)) if subset else 0.0
+        subset = [d for d, c in results if c == cat]
+        by_cat[cat] = float(np.mean(subset)) if subset else 0.0
     return {"overall": overall, "by_category": by_cat}
 
 
@@ -308,15 +311,15 @@ def run_experiment2(dataset: list[dict], top20: list[dict]) -> dict:
     categories = sorted(set(item["category"] for item in dataset))
 
     # ── Baseline ────────────────────────────────────────────────────────────
-    log.info("Computing baseline accuracy …")
+    log.info("Computing baseline logit differences …")
     baseline_results = _eval_on_dataset(
         tqdm(dataset, desc="Baseline"),
         lambda item: model(model.to_tokens(item["prompt"]))
     )
-    baseline = _accuracy_summary(baseline_results, categories)
-    log.info(f"  Baseline overall: {baseline['overall']:.1%}")
+    baseline = _logit_diff_summary(baseline_results, categories)
+    log.info(f"  Baseline mean logit diff: {baseline['overall']:+.4f}")
     for cat in categories:
-        log.info(f"    {cat}: {baseline['by_category'][cat]:.1%}")
+        log.info(f"    {cat}: {baseline['by_category'][cat]:+.4f}")
 
     # ── Per-feature ablation ─────────────────────────────────────────────────
     ablation_results: list[dict] = []
@@ -328,30 +331,30 @@ def run_experiment2(dataset: list[dict], top20: list[dict]) -> dict:
             tqdm(dataset, desc=f"  {feat['name']}", leave=False),
             lambda item, f=feat: _run_with_zero_ablation(item["prompt"], f)
         )
-        ablated = _accuracy_summary(ablated_results, categories)
+        ablated = _logit_diff_summary(ablated_results, categories)
 
-        drop_overall = (baseline["overall"] - ablated["overall"]) * 100
-        drop_by_cat  = {cat: (baseline["by_category"][cat] - ablated["by_category"][cat]) * 100
+        drop_overall = baseline["overall"] - ablated["overall"]
+        drop_by_cat  = {cat: baseline["by_category"][cat] - ablated["by_category"][cat]
                         for cat in categories}
         most_affected = max(drop_by_cat, key=lambda c: drop_by_cat[c])
 
         row = {
-            "feature_name":               feat["name"],
-            "kind":                       feat["kind"],
-            "layer":                      feat["layer"],
-            "index":                      feat["index"],
-            "baseline_accuracy_pct":      round(baseline["overall"] * 100, 1),
-            "ablated_accuracy_pct":       round(ablated["overall"] * 100, 1),
-            "accuracy_drop_pp":           round(drop_overall, 1),
-            "most_affected_category":     most_affected,
-            "drop_by_category":           {c: round(v, 1) for c, v in drop_by_cat.items()},
-            "baseline_by_category_pct":   {c: round(baseline["by_category"][c] * 100, 1) for c in categories},
-            "ablated_by_category_pct":    {c: round(ablated["by_category"][c] * 100, 1)  for c in categories},
+            "feature_name":                   feat["name"],
+            "kind":                           feat["kind"],
+            "layer":                          feat["layer"],
+            "index":                          feat["index"],
+            "baseline_mean_logit_diff":        round(baseline["overall"], 4),
+            "ablated_mean_logit_diff":         round(ablated["overall"], 4),
+            "logit_diff_drop":                 round(drop_overall, 4),
+            "most_affected_category":          most_affected,
+            "drop_by_category":                {c: round(v, 4) for c, v in drop_by_cat.items()},
+            "baseline_logit_diff_by_category": {c: round(baseline["by_category"][c], 4) for c in categories},
+            "ablated_logit_diff_by_category":  {c: round(ablated["by_category"][c], 4)  for c in categories},
         }
         ablation_results.append(row)
-        log.info(f"    overall drop: {drop_overall:+.1f}pp  |  most affected: {most_affected}")
+        log.info(f"    logit diff drop: {drop_overall:+.4f}  |  most affected: {most_affected}")
         for cat in categories:
-            log.info(f"      {cat}: {drop_by_cat[cat]:+.1f}pp")
+            log.info(f"      {cat}: {drop_by_cat[cat]:+.4f}")
 
         # Checkpoint after each feature
         with open(INTERMEDIATE_DIR / "exp2_checkpoint.json", "w") as f:
@@ -359,9 +362,9 @@ def run_experiment2(dataset: list[dict], top20: list[dict]) -> dict:
 
     # ── Final output ─────────────────────────────────────────────────────────
     output = {
-        "baseline_accuracy_pct":          round(baseline["overall"] * 100, 1),
-        "baseline_by_category_pct":       {c: round(baseline["by_category"][c] * 100, 1) for c in categories},
-        "ablation_results":               ablation_results,
+        "baseline_mean_logit_diff":           round(baseline["overall"], 4),
+        "baseline_logit_diff_by_category":    {c: round(baseline["by_category"][c], 4) for c in categories},
+        "ablation_results":                   ablation_results,
     }
     with open("ablation_results.json", "w") as f:
         json.dump(output, f, indent=2)
@@ -371,14 +374,14 @@ def run_experiment2(dataset: list[dict], top20: list[dict]) -> dict:
 
     # Print summary table
     log.info("\nAblation summary table:")
-    header = f"  {'Feature':38s}  {'Baseline':>8s}  {'Ablated':>8s}  {'Drop':>6s}  {'Most affected'}"
+    header = f"  {'Feature':38s}  {'Baseline LD':>11s}  {'Ablated LD':>10s}  {'Drop':>8s}  {'Most affected'}"
     log.info(header)
-    log.info("  " + "-" * 80)
+    log.info("  " + "-" * 85)
     for r in ablation_results:
         log.info(f"  {r['feature_name']:38s}  "
-                 f"{r['baseline_accuracy_pct']:7.1f}%  "
-                 f"{r['ablated_accuracy_pct']:7.1f}%  "
-                 f"{r['accuracy_drop_pp']:+5.1f}pp  "
+                 f"{r['baseline_mean_logit_diff']:+10.4f}  "
+                 f"{r['ablated_mean_logit_diff']:+10.4f}  "
+                 f"{r['logit_diff_drop']:+8.4f}  "
                  f"{r['most_affected_category']}")
 
     return output
@@ -390,20 +393,21 @@ def _plot_experiment2(ablation_results: list[dict], categories: list[str]) -> No
     x       = np.arange(n_feats)
     width   = 0.75 / n_cats
 
-    fig, axes = plt.subplots(2, 1, figsize=(16, 12))
+    fig, axes = plt.subplots(2, 1, figsize=(16, 14))
 
-    # ── Top panel: overall accuracy drop ─────────────────────────────────────
+    # ── Top panel: overall logit diff drop ───────────────────────────────────
     ax = axes[0]
-    drops = [r["accuracy_drop_pp"] for r in ablation_results]
+    drops = [r["logit_diff_drop"] for r in ablation_results]
     bars  = ax.bar(x, drops, color="steelblue", alpha=0.85)
     for bar, val in zip(bars, drops):
-        ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.3,
-                f"{val:+.1f}", ha="center", va="bottom", fontsize=8)
+        ypos = bar.get_height() + 0.02 if val >= 0 else bar.get_height() - 0.06
+        ax.text(bar.get_x() + bar.get_width() / 2, ypos,
+                f"{val:+.3f}", ha="center", va="bottom", fontsize=8)
     ax.set_xticks(x)
     ax.set_xticklabels([r["feature_name"] for r in ablation_results],
                        rotation=25, ha="right", fontsize=8)
-    ax.set_ylabel("Accuracy drop (pp)")
-    ax.set_title("Overall Accuracy Drop per Ablated Feature")
+    ax.set_ylabel("Mean logit diff drop (correct − foil)")
+    ax.set_title("Overall Logit Difference Drop per Ablated Feature")
     ax.axhline(0, color="black", linewidth=0.8, linestyle="--")
 
     # ── Bottom panel: breakdown by fact type ──────────────────────────────────
@@ -418,8 +422,8 @@ def _plot_experiment2(ablation_results: list[dict], categories: list[str]) -> No
     ax2.set_xticks(x)
     ax2.set_xticklabels([r["feature_name"] for r in ablation_results],
                         rotation=25, ha="right", fontsize=8)
-    ax2.set_ylabel("Accuracy drop by fact type (pp)")
-    ax2.set_title("Accuracy Drop Broken Down by Fact Type")
+    ax2.set_ylabel("Logit diff drop by fact type")
+    ax2.set_title("Logit Difference Drop Broken Down by Fact Type")
     ax2.legend(title="Fact type", loc="upper right")
     ax2.axhline(0, color="black", linewidth=0.8, linestyle="--")
 

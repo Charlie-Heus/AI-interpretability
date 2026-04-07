@@ -576,5 +576,473 @@ For the feature composition research, this means:
        Small exhibit this distribution, and does it hold for larger models?
 
 ================================================================================
+DAYS 3-4: FEATURE EXTRACTION & ANALYSIS
+================================================================================
+Date: April 2026
+
+--------------------------------------------------------------------------------
+11. FILE: feature_experiments.py
+--------------------------------------------------------------------------------
+PURPOSE
+-------
+Runs two experiments on the 22 validated examples to identify which internal
+components of GPT-2 Small drive factual recall predictions.
+
+    Experiment 1 — Direct Logit Attribution (DLA): rank every MLP neuron in
+        layers 6-8 and every attention head in layers 9-10 by how strongly it
+        pushes the model toward the correct answer vs. the foil.
+
+    Experiment 2 — Zero Ablation: for each of the top-10 features found in
+        Experiment 1, zero out its activation during the forward pass and
+        measure how much the logit difference between correct and foil changes.
+
+ATTRIBUTION METHOD (Experiment 1)
+----------------------------------
+Direct Logit Attribution (DLA) is a first-order linear technique. For each
+feature, we compute how much of the final logit difference it is responsible
+for, under the assumption that contributions add linearly.
+
+    u_diff = W_U[:, correct_id] - W_U[:, incorrect_id]
+        The direction in model space that points "more correct, less foil."
+        W_U is the unembedding matrix (shape [d_model, vocab]).
+
+    MLP neuron (l, n):
+        attr = act[n] * (W_out[l][n] · u_diff)
+        act[n] is the post-activation value of neuron n at the last token.
+        W_out[l][n] is that neuron's output vector (its column of W_out).
+        The dot product measures alignment with the correct-answer direction.
+
+    Attention head (l, h):
+        attr = head_out[h] · u_diff
+        head_out[h] is computed as z[h] @ W_O[h], where z is cached from
+        hook_z (shape [n_heads, d_head]) and W_O has shape [n_heads, d_head,
+        d_model]. This gives the residual-stream contribution of head h at
+        the last token.
+
+Each example produces a score per feature. Scores are averaged across all 22
+examples and features are ranked by absolute average attribution.
+
+ABLATION METHOD (Experiment 2)
+--------------------------------
+Zero ablation: during the forward pass, intercept the activation of the
+target feature and set it to zero. Re-run the forward pass with this hook
+active and measure the logit difference (correct - foil) on the final token.
+
+    MLP neuron (l, n): hook blocks.{l}.mlp.hook_post, set index n to 0.
+    Attention head (l, h): hook blocks.{l}.attn.hook_z, set head h's
+        output vectors to 0. This is equivalent to zeroing hook_result
+        (the per-head residual-stream contribution) without needing the
+        model to be loaded with use_attn_result=True.
+
+The metric is the change in mean logit difference (baseline - ablated).
+Positive drop = ablation hurts the model (feature was helping).
+Negative drop = ablation helps the model (feature was hurting).
+
+IMPLEMENTATION BUGS ENCOUNTERED AND FIXED
+------------------------------------------
+Bug 1: hook_result KeyError
+    Problem: _attribute_example accessed cache["blocks.9.attn.hook_result"]
+        which does not exist unless the model is loaded with
+        use_attn_result=True. TransformerLens does not cache per-head outputs
+        by default.
+    Failed fix attempt: passing use_attn_result=True to from_pretrained()
+        forwarded the kwarg to HuggingFace's AutoModelForCausalLM, which does
+        not recognize it and raises TypeError.
+    Fix: compute per-head output manually from hook_z and W_O:
+        z = cache["blocks.{l}.attn.hook_z"][0, -1, :, :]  # [n_heads, d_head]
+        W_O = model.blocks[l].attn.W_O                    # [n_heads, d_head, d_model]
+        head_out = einsum("hd,hdm->hm", z, W_O)           # [n_heads, d_model]
+        This is mathematically identical to hook_result.
+
+Bug 2: Ablation hooks silently not firing for attention heads
+    Problem: _run_with_zero_ablation used hook_result for attention ablation.
+        Since hook_result is not in the cache, TransformerLens registered the
+        hook against a non-existent key. The hook never fired. Every ablated
+        attention head showed exactly +0.0000 logit diff change.
+    Fix: switch ablation to hook_z — zero out value[:, :, h, :] (all d_head
+        dimensions for head h). This removes that head's contribution to the
+        residual stream identically to zeroing hook_result.
+
+Bug 3: Binary accuracy metric insensitive to ablation effects
+    Problem: Experiment 2 originally used binary accuracy (correct logit >
+        foil logit, yes/no) as its metric. Because the dataset was specifically
+        chosen so that the correct answer wins with >50% probability, single-
+        feature ablation never flipped any of the 22 predictions. Every feature
+        showed +0.0pp accuracy drop — meaningless output.
+    Fix: replace binary accuracy with mean logit difference (correct logit -
+        foil logit) as the metric. Logit diff is a continuous, sensitive measure
+        that captures graded changes even when no prediction flips. This is the
+        standard metric in mechanistic interpretability (following Neel Nanda).
+
+
+--------------------------------------------------------------------------------
+12. EXPERIMENT 1 RESULTS: TOP-20 FEATURES BY DLA
+--------------------------------------------------------------------------------
+Features are ranked by |average DLA score| across 22 examples. Positive score
+= pushes model toward correct answer. Negative = pushes toward foil.
+
+Rank  Feature                    Avg attr  Top-10 freq  Notes
+----  -------------------------  --------  -----------  -------------------------
+ 1    Layer 10, Head 0            -2.0577  15 / 22      Consistently suppresses
+                                                        the correct answer
+ 2    Layer 10, Head 6            +1.6920   8 / 22      Promotes correct answer
+ 3    Layer 8, Neuron 538         -1.4270   8 / 22      Suppresses correct answer
+ 4    Layer 8, Neuron 1028        +0.9270   7 / 22      Promotes correct answer
+ 5    Layer 9, Head 2             +0.9096   7 / 22      Promotes correct answer
+ 6    Layer 8, Neuron 1460        +0.8238   4 / 22
+ 7    Layer 8, Neuron 2108        -0.8045   7 / 22      Suppresses correct answer
+ 8    Layer 9, Head 5             -0.7285   9 / 22      Suppresses correct answer
+ 9    Layer 8, Neuron 1458        -0.6883   0 / 22      High avg but inconsistent
+10    Layer 8, Neuron 1972        +0.6043   4 / 22
+11    Layer 6, Neuron 737         +0.6017   4 / 22
+12    Layer 6, Neuron 833         -0.5484   0 / 22      High avg but inconsistent
+13    Layer 8, Neuron 1104        -0.5459   0 / 22      High avg but inconsistent
+14    Layer 10, Head 2            +0.5321   2 / 22
+15    Layer 6, Neuron 2800        -0.4802   1 / 22
+16    Layer 8, Neuron 2167        +0.4292   0 / 22
+17    Layer 9, Head 11            +0.4287   1 / 22
+18    Layer 10, Head 11           -0.4251  14 / 22      Very frequent, modest score
+19    Layer 9, Head 4             +0.4156   0 / 22
+20    Layer 7, Neuron 608         -0.4058  10 / 22
+
+Notable patterns:
+- All of the top-5 features come from layers 8-10. Layers 6-7 appear only in
+  positions 11-20. This supports the general mech-interp finding that later
+  layers handle output-relevant computation.
+- Several features with high average attribution have top-10 frequency of 0
+  (neurons 1458, 833, 1104). This means they score extremely high on a few
+  examples and near-zero on others. They are example-specific rather than
+  general factual-recall features.
+- Neurons 538 and 2108, and heads 0 and 5, consistently have negative
+  attribution. They are systematically suppressing the correct answer.
+  This may indicate they encode competing hypotheses (e.g., promoting French
+  cities that are not Paris).
+
+
+--------------------------------------------------------------------------------
+13. EXPERIMENT 2 RESULTS: ABLATION OF TOP-10 FEATURES
+--------------------------------------------------------------------------------
+Baseline mean logit diff: +1.3577
+  Geography (13 examples): +1.2426
+  Attributes (7 examples): +1.4473
+  History (2 examples):    +1.7924
+
+Feature                    Baseline LD  Ablated LD    Drop  Most affected
+-------------------------  -----------  ----------  ------  -----------------
+Layer 10, Head 0            +1.3577      +1.3575   +0.0002  geography
+Layer 10, Head 6            +1.3577      +1.2093   +0.1484  geography
+Layer 8, Neuron 538         +1.3577      +1.4999   -0.1422  history (improved)
+Layer 8, Neuron 1028        +1.3577      +1.4827   -0.1250  attributes (improved)
+Layer 9, Head 2             +1.3577      +1.3801   -0.0224  attributes (improved)
+Layer 8, Neuron 1460        +1.3577      +1.3064   +0.0514  geography
+Layer 8, Neuron 2108        +1.3577      +1.3927   -0.0350  history (improved)
+Layer 9, Head 5             +1.3577      +1.4024   -0.0447  history (improved)
+Layer 8, Neuron 1458        +1.3577      +1.2865   +0.0712  geography
+Layer 8, Neuron 1972        +1.3577      +1.3332   +0.0246  geography
+
+
+--------------------------------------------------------------------------------
+14. FINDINGS AND INTERPRETATION
+--------------------------------------------------------------------------------
+
+FINDING 1: Single-feature ablation never flips a prediction
+------------------------------------------------------------
+The largest ablation effect (Head 6, +0.15 logit units) is small relative to
+the baseline logit diff (+1.36). No ablated feature caused a single prediction
+to flip. This means no individual component among the top-10 is load-bearing.
+The model is redundant: factual recall is distributed across multiple features,
+and removing any one of them is compensated by the others.
+
+This is consistent with the broader mech-interp literature. Single-feature
+ablation usually has small effects; large effects require ablating entire
+circuits (multiple interacting components). It does not mean these features
+are unimportant — it means they work as part of a larger ensemble.
+
+FINDING 2: DLA and ablation frequently disagree in sign
+---------------------------------------------------------
+Head 0 is the most striking case: DLA score -2.06 (by far the largest in
+magnitude, appearing in top-10 for 15/22 examples), but ablation effect
+essentially zero (+0.0002). DLA predicts it is the most important suppressive
+feature; causal ablation says removing it changes almost nothing.
+
+Neurons 1028 and head 2 also show sign disagreement: DLA says they promote
+the correct answer (positive scores), but ablating them slightly improves the
+logit diff (negative drop), suggesting they were actually mildly suppressive.
+
+The root cause is that DLA is a first-order linear approximation. It measures
+the direction of each feature's output relative to the correct-answer direction
+in unembedding space, evaluated at a fixed activation state. It does not
+account for nonlinear downstream processing or for the model's ability to
+compensate when a feature is removed. Ablation is a causal intervention;
+DLA is a correlational estimate. They measure different things.
+
+FINDING 3: Features with negative DLA scores improve the model when ablated
+----------------------------------------------------------------------------
+Neurons 538 (-1.43 DLA), 1028 (-0.13 ablation improvement), 2108 (-0.80 DLA),
+and head 5 (-0.73 DLA) all improved performance when zeroed. This is coherent:
+if a feature is pushing logits toward the foil, removing it shifts logits back
+toward the correct answer. These are genuine suppressive components — internal
+competition from representations that favor wrong answers.
+
+FINDING 4: Geography is consistently the most affected category
+----------------------------------------------------------------
+Of the 5 features with positive ablation drop (ablating hurts), 4 of them
+most affect geography examples. This is unsurprising given that 13/22 examples
+are geography, but it also reflects that these features appear most active in
+the capital-city prediction task specifically.
+
+FINDING 5: DLA-ablation discrepancy as a research result
+----------------------------------------------------------
+The gap between DLA rankings and causal ablation effects is itself a finding
+worth documenting. It shows that high linear attribution does not imply causal
+importance, and that the model's internal redundancy means correlation-based
+attribution methods will overestimate individual feature importance. This has
+direct implications for interpretability: attribution maps (gradient-based or
+linear) may identify the wrong features as critical.
+
+================================================================================
+11. DAYS 5-6: FEATURE COMPOSITION ANALYSIS
+================================================================================
+
+OVERVIEW — WHAT WE DID AND WHY
+--------------------------------
+Days 3-4 told us WHICH features matter most (Experiment 1: attribution) and
+HOW MUCH each one individually matters (Experiment 2: single-feature ablation).
+The natural next question is: do these features work TOGETHER, or do they work
+independently?
+
+That is the question Days 5-6 answer. We ran two new experiments implemented
+in composition_experiments.py:
+
+  Experiment 3 — Pairwise Compositionality
+    For every pair of the top-10 features, we removed both simultaneously and
+    asked: is the combined damage equal to the sum of the individual damages?
+
+  Experiment 4 — Feature Specialization
+    For each of the top-10 features, we asked: does this feature contribute
+    equally across geography, history, and attributes — or is it specialized
+    for one fact type?
+
+
+--------------------------------------------------------------------------------
+EXPERIMENT 3 — PAIRWISE COMPOSITIONALITY
+--------------------------------------------------------------------------------
+
+WHAT IT TESTS
+-------------
+"Compositionality" here means a specific empirical question: when you remove
+two features at once, is the damage additive?
+
+Think of it like this. Suppose feature A hurts performance by 0.10 logit units
+when removed, and feature B hurts by 0.05. If you remove both and lose 0.15,
+they are perfectly independent — each one was doing its own separate job.
+
+But if you remove both and lose 0.25 (much more than 0.15), it means they were
+reinforcing each other — together they matter more than separately. This is
+called a SYNERGISTIC interaction.
+
+And if you remove both and only lose 0.08 (less than 0.15), it means they were
+doing the same job — removing one already covered most of what the other would
+have covered. This is called a REDUNDANT interaction.
+
+We measure this formally as:
+    interaction = drop_AB − (drop_A + drop_B)
+
+  interaction > 0  →  SYNERGISTIC  (they amplify each other)
+  interaction ≈ 0  →  ADDITIVE / INDEPENDENT  (they work separately)
+  interaction < 0  →  REDUNDANT  (they overlap / share their job)
+
+HOW IT WORKS
+------------
+We already had the single-feature ablation drops from Experiment 2
+(ablation_results.json). To avoid recomputing them, we loaded those directly.
+
+The only new computation was running GPT-2 with TWO features zeroed out
+simultaneously. We do this by registering two ablation hooks — one per feature.
+If both features happen to live in the same layer and component (e.g., two
+attention heads in layer 10), we merge them into a single combined hook rather
+than stacking two hooks on the same point.
+
+We tested all 45 unique pairs (10 features → 10 choose 2 = 45 pairs), each
+requiring one forward pass per dataset example (22), for 990 total passes.
+This ran in about 45 seconds.
+
+RESULTS
+-------
+Baseline logit diff: +1.358
+
+Top interactions ranked by magnitude:
+
+  REDUNDANT pairs (interaction < 0):
+    L9/Head 5 × L8/Neuron 1458         interaction = −0.033
+    L10/Head 0 × L8/Neuron 1028        interaction = −0.027
+    L8/Neuron 538 × L8/Neuron 1458     interaction = −0.017
+    L8/Neuron 2108 × L9/Head 5         interaction = −0.020
+
+  SYNERGISTIC pairs (interaction > 0):
+    L10/Head 6 × L9/Head 2             interaction = +0.027
+    L8/Neuron 1028 × L9/Head 5         interaction = +0.026
+    L10/Head 6 × L9/Head 5             interaction = +0.017
+
+WHAT THIS MEANS
+---------------
+The striking result is how SMALL all the interaction terms are. The largest
+interaction in either direction is ±0.033 — roughly 2.4% of the baseline logit
+diff of 1.358. Every single pair of features is effectively additive.
+
+This has a concrete interpretation: these 10 features are encoding SEPARABLE
+information. None of them are mutually reinforcing in a way that would cause
+removing one to make the other suddenly critical, and none of them are pure
+duplicates of each other.
+
+The mild redundancy in L9/Head 5 × L8/Neuron 1458 (−0.033) makes intuitive
+sense: both have negative DLA (both suppress the wrong answer, particularly for
+geography). Their functional roles partially overlap, so removing both doesn't
+hurt much more than removing either one individually.
+
+The mild synergy in L10/Head 6 × L9/Head 2 (+0.027) also makes sense: both
+have strongly positive DLA for geography (see Experiment 4 below). They likely
+cooperate to push logits toward the correct capital token. When you remove both,
+you lose more than the sum because they were jointly building up the correct
+prediction.
+
+Overall finding: the top features are largely a bag of independent components,
+not a tightly coupled circuit. This is consistent with what single-feature
+ablation already suggested — no individual feature is load-bearing, and now we
+know no PAIR is either. Factual recall in GPT-2 Small appears to be distributed
+across many weakly contributing features rather than concentrated in a small
+interacting circuit.
+
+
+--------------------------------------------------------------------------------
+EXPERIMENT 4 — FEATURE SPECIALIZATION HEATMAP
+--------------------------------------------------------------------------------
+
+WHAT IT TESTS
+-------------
+Do features care about one type of fact more than another? A feature that fires
+strongly for geography but barely for science/physics facts is a SPECIALIZED
+feature. One that fires equally across all categories is GENERAL.
+
+We have three categories in our dataset:
+  Geography: 13 examples (capital city prompts)
+  Attributes: 7 examples (science/physics facts)
+  History: 2 examples (famous names/attributions)
+
+HOW IT WORKS
+------------
+This experiment requires NO new model inference. All the information we need is
+already in top_features.json from Experiment 1. Each feature has an
+"all_attributions" field: a list of 22 DLA scores, one per dataset example, in
+the same order as the dataset.
+
+We simply group those 22 values by their example's category and compute the
+mean for each (feature, category) pair. The result is a 10×3 matrix that we
+plot as a heatmap.
+
+RESULTS
+-------
+Mean DLA attribution by feature and category (positive = pushes toward correct
+answer; negative = pushes toward wrong answer):
+
+  Feature               Attributes  Geography  History
+  ─────────────────────────────────────────────────────
+  L10, Head 0            −1.97       −2.45      +0.16
+  L10, Head 6            +0.06       +2.87      −0.21
+  L8, Neuron 538         −0.12       −2.37      +0.14
+  L8, Neuron 1028        −0.04       +1.59      +0.03
+  L9, Head 2             −0.89       +2.04      −0.14
+  L8, Neuron 1460        −0.04       +1.41      +0.05
+  L8, Neuron 2108        −0.16       −1.28      +0.05
+  L9, Head 5             +0.24       −1.31      −0.33
+  L8, Neuron 1458        +0.02       −1.17      −0.00
+  L8, Neuron 1972        −0.05       +1.05      −0.04
+
+WHAT THIS MEANS
+---------------
+The most striking pattern: almost all top-10 features are strongly
+GEOGRAPHY-SPECIALIZED. Their attributions for geography examples are 5–10×
+larger in magnitude than their attributions for attributes or history examples.
+
+This is not just a sample-size artifact. Yes, geography is the biggest category
+(13/22 examples), but the attribution values per example are genuinely much
+larger too. The capital-city prompt format generates strong, consistent internal
+signals that these features respond to. Physics and science facts activate them
+much more weakly.
+
+Two clusters emerge clearly:
+
+  GEOGRAPHY PROMOTERS (positive DLA on geography):
+    Head 6 (L10): +2.87 — by far the strongest single positive feature
+    Head 2 (L9):  +2.04
+    Neuron 1028 (L8): +1.59
+    Neuron 1460 (L8): +1.41
+    Neuron 1972 (L8): +1.05
+    These features are pushing logits toward the correct capital token.
+
+  GEOGRAPHY SUPPRESSORS (negative DLA on geography):
+    Head 0 (L10):    −2.45 — the strongest single negative feature
+    Neuron 538 (L8): −2.37
+    Neuron 2108 (L8): −1.28
+    Head 5 (L9):     −1.31
+    Neuron 1458 (L8): −1.17
+    These features are pushing logits toward the foil (wrong capital).
+
+Together, these two clusters tell a coherent story: the capital-city prediction
+is a tug-of-war. One set of features "votes" for the correct answer; another
+set "votes" for the most plausible wrong answer (e.g., Barcelona when the
+question is about Spain). The correct answer wins because the promoters
+collectively outweigh the suppressors — but the suppressors are why the foil
+gets non-trivial probability (10–23%) in the first place.
+
+The attributes category shows very weak overall signal. This makes sense: the
+attribute prompts ("Water is composed of hydrogen and...") are structurally
+very different from the capital-city prompts. The features that were selected
+as top-10 by Experiment 1 were averaging across ALL examples, but because
+geography has both more examples AND larger per-example magnitudes, the top-10
+features are essentially the "geography circuit" of GPT-2 Small. A separate
+attribution run that focused only on attribute examples would likely surface a
+completely different set of important features.
+
+The history category has only 2 examples ("Sir Isaac" → Newton; "The Mona Lisa
+was painted by Leonardo" → da), so the per-category means for history are
+noisy and should be read with caution.
+
+
+--------------------------------------------------------------------------------
+OVERALL TAKEAWAYS — DAYS 5-6
+--------------------------------------------------------------------------------
+
+1. FEATURES ARE LARGELY INDEPENDENT
+   Pairwise interactions are small (all within ±0.033 of expected additive
+   behavior). The top-10 features are not a tightly coupled circuit — they are
+   a collection of separable contributors. This deepens the Day 3-4 finding:
+   not only is no individual feature load-bearing, no pair of features is either.
+
+2. THE TOP-10 FEATURES ARE PRIMARILY A GEOGRAPHY CIRCUIT
+   The specialization heatmap reveals that most of the signal driving our
+   top-10 ranking comes from the capital-city examples. Features with large
+   geography scores are relatively inert on physics/science facts. This means
+   the "feature importance" ranking from Experiment 1 should be read as
+   "feature importance for geography" rather than for factual recall in general.
+
+3. A PROMOTER / SUPPRESSOR SPLIT IS VISIBLE
+   The geography-specialized features split cleanly into two groups: those that
+   push toward the correct capital, and those that push toward the competing
+   wrong capital. Both groups are necessary to explain the sweet-spot
+   probability distribution (correct ~55-75%, foil ~10-23%). The promoters
+   explain why the model gets it right; the suppressors explain why the model
+   is not fully confident.
+
+4. WHAT TO DO NEXT
+   The natural next step (Days 7-8 writeup) is to zoom into the geography
+   circuit specifically: identify which attention heads are attending to the
+   seed examples versus the target country, and test whether the promoter
+   heads are reading off the seed completions (induction-style copying) or
+   doing something more abstract. The specialization finding gives us a clear
+   roadmap: restrict analysis to the 13 geography examples and let the other
+   categories go for now.
+
+================================================================================
 End of writeup
 ================================================================================

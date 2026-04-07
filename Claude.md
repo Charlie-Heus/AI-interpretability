@@ -122,6 +122,10 @@ Two completed seed examples prime GPT-2 to recognize the pattern and continue it
 
 ---
 
+## Project Schedule
+
+At the start of every session, read `project_schedule.md` to check the current stage of the 8-day roadmap. After completing any item, immediately mark it as done in `project_schedule.md` with `[x]` before moving on.
+
 ## Task Management
 
 1. **Plan First**: Write plan to `tasks/todo.md` with checkable items

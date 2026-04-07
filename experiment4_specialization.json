@@ -1,0 +1,141 @@
+{
+  "categories": [
+    "attributes",
+    "geography",
+    "history"
+  ],
+  "features": [
+    "Layer 10, Head 0",
+    "Layer 10, Head 6",
+    "Layer 8, Neuron 538",
+    "Layer 8, Neuron 1028",
+    "Layer 9, Head 2",
+    "Layer 8, Neuron 1460",
+    "Layer 8, Neuron 2108",
+    "Layer 9, Head 5",
+    "Layer 8, Neuron 1458",
+    "Layer 8, Neuron 1972"
+  ],
+  "specialization": [
+    {
+      "feature_name": "Layer 10, Head 0",
+      "kind": "attn",
+      "layer": 10,
+      "index": 0,
+      "avg_attr_by_cat": {
+        "attributes": -1.9705,
+        "geography": -2.4456,
+        "history": 0.1593
+      },
+      "avg_attr_overall": -2.0577
+    },
+    {
+      "feature_name": "Layer 10, Head 6",
+      "kind": "attn",
+      "layer": 10,
+      "index": 6,
+      "avg_attr_by_cat": {
+        "attributes": 0.0563,
+        "geography": 2.8647,
+        "history": -0.2058
+      },
+      "avg_attr_overall": 1.692
+    },
+    {
+      "feature_name": "Layer 8, Neuron 538",
+      "kind": "mlp",
+      "layer": 8,
+      "index": 538,
+      "avg_attr_by_cat": {
+        "attributes": -0.1217,
+        "geography": -2.3701,
+        "history": 0.1349
+      },
+      "avg_attr_overall": -1.427
+    },
+    {
+      "feature_name": "Layer 8, Neuron 1028",
+      "kind": "mlp",
+      "layer": 8,
+      "index": 1028,
+      "avg_attr_by_cat": {
+        "attributes": -0.0386,
+        "geography": 1.5854,
+        "history": 0.0274
+      },
+      "avg_attr_overall": 0.927
+    },
+    {
+      "feature_name": "Layer 9, Head 2",
+      "kind": "attn",
+      "layer": 9,
+      "index": 2,
+      "avg_attr_by_cat": {
+        "attributes": -0.8859,
+        "geography": 2.0382,
+        "history": -0.1423
+      },
+      "avg_attr_overall": 0.9096
+    },
+    {
+      "feature_name": "Layer 8, Neuron 1460",
+      "kind": "mlp",
+      "layer": 8,
+      "index": 1460,
+      "avg_attr_by_cat": {
+        "attributes": -0.0427,
+        "geography": 1.41,
+        "history": 0.0471
+      },
+      "avg_attr_overall": 0.8238
+    },
+    {
+      "feature_name": "Layer 8, Neuron 2108",
+      "kind": "mlp",
+      "layer": 8,
+      "index": 2108,
+      "avg_attr_by_cat": {
+        "attributes": -0.1607,
+        "geography": -1.2823,
+        "history": 0.0477
+      },
+      "avg_attr_overall": -0.8045
+    },
+    {
+      "feature_name": "Layer 9, Head 5",
+      "kind": "attn",
+      "layer": 9,
+      "index": 5,
+      "avg_attr_by_cat": {
+        "attributes": 0.2429,
+        "geography": -1.3132,
+        "history": -0.3276
+      },
+      "avg_attr_overall": -0.7285
+    },
+    {
+      "feature_name": "Layer 8, Neuron 1458",
+      "kind": "mlp",
+      "layer": 8,
+      "index": 1458,
+      "avg_attr_by_cat": {
+        "attributes": 0.0156,
+        "geography": -1.1725,
+        "history": -0.0043
+      },
+      "avg_attr_overall": -0.6883
+    },
+    {
+      "feature_name": "Layer 8, Neuron 1972",
+      "kind": "mlp",
+      "layer": 8,
+      "index": 1972,
+      "avg_attr_by_cat": {
+        "attributes": -0.046,
+        "geography": 1.054,
+        "history": -0.0436
+      },
+      "avg_attr_overall": 0.6043
+    }
+  ]
+}
