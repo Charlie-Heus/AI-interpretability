@@ -1,8 +1,19 @@
+# Claude Code internal files
 .claude/
 memory/
+Claude.md
+
+# Exploration scripts (not part of the final pipeline)
 probe_candidates.py
 probe_v3.py
 probe_v4.py
 probe_v5.py
+
+# Internal planning and development notes
+project_schedule.md
+project_writeup.txt
+
+# Runtime artifacts
+intermediate_results/
 __pycache__/
 *.pyc
