@@ -64,11 +64,11 @@ Run the four scripts in order. Each reads the outputs of the previous step.
 ```bash
 # Step 1 — Build candidate dataset (no model required, runs instantly)
 python3 create_dataset.py
-# → writes factual_recall_raw.json
+# → writes data/factual_recall_raw.json
 
 # Step 2 — Validate with GPT-2 Small (downloads ~500 MB weights on first run)
 python3 validate_dataset.py
-# → writes factual_recall_dataset.json, validation_report.txt
+# → writes data/factual_recall_dataset.json, data/validation_report.txt
 
 # Step 3 — Feature attribution and zero-ablation (~5–10 min on CPU)
 python3 feature_experiments.py
