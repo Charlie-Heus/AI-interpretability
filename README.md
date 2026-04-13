@@ -41,10 +41,6 @@ results/
   ablation_results.json              # Per-feature accuracy drop under zero-ablation
   experiment3_compositionality.json  # Pairwise interaction scores for all 45 pairs
   experiment4_specialization.json    # Per-category attribution means for top-10 features
-  experiment1_feature_importance.png
-  experiment2_ablation.png
-  experiment3_compositionality.png
-  experiment4_specialization.png
 ```
 
 ---
