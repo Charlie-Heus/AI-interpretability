@@ -12,19 +12,13 @@
 
 Top-10 attribution features are almost entirely geography-specific. They fire strongly for capital-city prompts and are nearly inert on science/physics examples, indicating a dedicated geography circuit rather than general factual recall machinery.
 
-![Feature specialization by category](results/experiment4_specialization.png)
-
 ### Finding 2 — Promoter / suppressor split within the geography circuit
 
 Features split into two opposing groups: *promoters* that increase the logit for the correct capital, and *suppressors* that increase the logit for the most plausible wrong answer. Both groups are necessary to explain why the model is confident but not certain.
 
-![Feature importance and ablation](results/experiment1_feature_importance.png)
-
 ### Finding 3 — Near-additive pairwise interactions
 
 Pairwise compositionality tests across all 45 pairs of top-10 features show uniformly near-additive behavior. No pair constitutes a "circuit" in the strong sense — the features are largely independent contributors.
-
-![Compositionality heatmap](results/experiment3_compositionality.png)
 
 ---
 
