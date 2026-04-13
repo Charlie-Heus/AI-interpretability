@@ -2,6 +2,7 @@
 .claude/
 memory/
 Claude.md
+paper.md
 
 # Exploration scripts (not part of the final pipeline)
 probe_candidates.py

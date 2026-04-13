@@ -4,8 +4,6 @@
 
 **Short answer:** Factual recall is encoded in a distributed, near-additive collection of geography-specialized features — not a tightly coupled circuit. All 45 pairwise feature interactions fell within ±0.033 of the additive prediction.
 
-> Full writeup: [paper.md](paper.md)
-
 ---
 
 ## Key Findings
@@ -37,7 +35,6 @@ create_dataset.py           # Step 1: generate 50 candidate prompts
 validate_dataset.py         # Step 2: validate with GPT-2 Small, filter to sweet-spot
 feature_experiments.py      # Step 3: DLA attribution (Exp 1) + zero-ablation (Exp 2)
 composition_experiments.py  # Step 4: pairwise compositionality (Exp 3) + specialization (Exp 4)
-paper.md                    # Full technical writeup
 requirements.txt
 
 data/
@@ -115,5 +112,3 @@ Steps 3 and 4 write checkpoints to `intermediate_results/` after every 5 example
 ## Implications for AI Safety
 
 Understanding how models encode factual knowledge matters for interpretability-based safety work. If factual recall were concentrated in a few critical neurons, those neurons could be identified and monitored. Our finding — that it is distributed across many weakly contributing, largely independent components — suggests that simple "fact deletion" interventions may require targeting many features simultaneously, and that circuit-level explanations may not transfer across fact categories.
-
-See [paper.md](paper.md) for the full discussion.
