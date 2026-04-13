@@ -14,19 +14,19 @@
 
 Top-10 attribution features are almost entirely geography-specific. They fire strongly for capital-city prompts and are nearly inert on science/physics examples, indicating a dedicated geography circuit rather than general factual recall machinery.
 
-![Feature specialization by category](experiment4_specialization.png)
+![Feature specialization by category](results/experiment4_specialization.png)
 
 ### Finding 2 — Promoter / suppressor split within the geography circuit
 
 Features split into two opposing groups: *promoters* that increase the logit for the correct capital, and *suppressors* that increase the logit for the most plausible wrong answer. Both groups are necessary to explain why the model is confident but not certain.
 
-![Feature importance and ablation](experiment1_feature_importance.png)
+![Feature importance and ablation](results/experiment1_feature_importance.png)
 
 ### Finding 3 — Near-additive pairwise interactions
 
 Pairwise compositionality tests across all 45 pairs of top-10 features show uniformly near-additive behavior. No pair constitutes a "circuit" in the strong sense — the features are largely independent contributors.
 
-![Compositionality heatmap](experiment3_compositionality.png)
+![Compositionality heatmap](results/experiment3_compositionality.png)
 
 ---
 
@@ -38,14 +38,22 @@ validate_dataset.py         # Step 2: validate with GPT-2 Small, filter to sweet
 feature_experiments.py      # Step 3: DLA attribution (Exp 1) + zero-ablation (Exp 2)
 composition_experiments.py  # Step 4: pairwise compositionality (Exp 3) + specialization (Exp 4)
 paper.md                    # Full technical writeup
+requirements.txt
 
-factual_recall_raw.json     # 50 candidate prompts (input to validator)
-factual_recall_dataset.json # 22 validated sweet-spot examples with metadata
-validation_report.txt       # Human-readable validation statistics
-top_features.json           # Top-20 DLA features with attribution scores
-ablation_results.json       # Per-feature accuracy drop under zero-ablation
-experiment3_compositionality.json  # Pairwise interaction scores for all 45 pairs
-experiment4_specialization.json    # Per-category attribution means for top-10 features
+data/
+  factual_recall_raw.json       # 50 candidate prompts (input to validator)
+  factual_recall_dataset.json   # 22 validated sweet-spot examples with metadata
+  validation_report.txt         # Human-readable validation statistics
+
+results/
+  top_features.json                  # Top-20 DLA features with attribution scores
+  ablation_results.json              # Per-feature accuracy drop under zero-ablation
+  experiment3_compositionality.json  # Pairwise interaction scores for all 45 pairs
+  experiment4_specialization.json    # Per-category attribution means for top-10 features
+  experiment1_feature_importance.png
+  experiment2_ablation.png
+  experiment3_compositionality.png
+  experiment4_specialization.png
 ```
 
 ---

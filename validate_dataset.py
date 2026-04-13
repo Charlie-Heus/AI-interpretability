@@ -31,8 +31,12 @@ Design note — GPT-2 Small's distribution is "winner-take-all":
   This sparsity is itself a finding about GPT-2 Small's factual recall.
 """
 import json, statistics
+from pathlib import Path
 import torch
 from transformer_lens import HookedTransformer
+
+DATA_DIR = Path("data")
+DATA_DIR.mkdir(exist_ok=True)
 
 # ─── Load model ───────────────────────────────────────────────────────────────
 print("Loading GPT-2 Small via TransformerLens…")
@@ -99,7 +103,7 @@ def evaluate(prompt: str, correct_str: str):
 
 
 # ─── Load raw dataset ─────────────────────────────────────────────────────────
-with open("factual_recall_raw.json") as f:
+with open(DATA_DIR / "factual_recall_raw.json") as f:
     raw_dataset = json.load(f)
 
 print(f"Validating {len(raw_dataset)} candidate prompts…\n")
@@ -158,7 +162,7 @@ final_dataset = [
     for r in passed_results
 ]
 
-with open("factual_recall_dataset.json", "w") as f:
+with open(DATA_DIR / "factual_recall_dataset.json", "w") as f:
     json.dump(final_dataset, f, indent=2)
 
 
@@ -252,7 +256,7 @@ lines += [
 report = "\n".join(lines)
 print("\n" + report)
 
-with open("validation_report.txt", "w") as f:
+with open(DATA_DIR / "validation_report.txt", "w") as f:
     f.write(report + "\n")
 
 print(f"\nDone.  {len(final_dataset)} examples saved to factual_recall_dataset.json")

@@ -35,8 +35,11 @@ log = logging.getLogger(__name__)
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 
-DATASET_PATH    = "factual_recall_dataset.json"
+DATA_DIR         = Path("data")
+RESULTS_DIR      = Path("results")
 INTERMEDIATE_DIR = Path("intermediate_results")
+DATASET_PATH     = DATA_DIR / "factual_recall_dataset.json"
+RESULTS_DIR.mkdir(exist_ok=True)
 INTERMEDIATE_DIR.mkdir(exist_ok=True)
 
 # ── Target components (adjust freely) ────────────────────────────────────────
@@ -189,7 +192,7 @@ def run_experiment1(dataset: list[dict]) -> list[dict]:
 
     # Save
     out = {"top_20_features": top20, "total_examples": len(dataset)}
-    with open("top_features.json", "w") as f:
+    with open(RESULTS_DIR / "top_features.json", "w") as f:
         json.dump(out, f, indent=2)
     log.info("Saved → top_features.json")
 
@@ -242,7 +245,7 @@ def _plot_experiment1(top20: list[dict]) -> None:
     fig.suptitle("Experiment 1: Top-20 Features by Direct Logit Attribution\n"
                  "(GPT-2 Small — factual recall dataset)", fontsize=12, y=1.01)
     plt.tight_layout()
-    plt.savefig("experiment1_feature_importance.png", dpi=150, bbox_inches="tight")
+    plt.savefig(RESULTS_DIR / "experiment1_feature_importance.png", dpi=150, bbox_inches="tight")
     plt.close()
     log.info("Saved → experiment1_feature_importance.png")
 
@@ -366,7 +369,7 @@ def run_experiment2(dataset: list[dict], top20: list[dict]) -> dict:
         "baseline_logit_diff_by_category":    {c: round(baseline["by_category"][c], 4) for c in categories},
         "ablation_results":                   ablation_results,
     }
-    with open("ablation_results.json", "w") as f:
+    with open(RESULTS_DIR / "ablation_results.json", "w") as f:
         json.dump(output, f, indent=2)
     log.info("\nSaved → ablation_results.json")
 
@@ -430,7 +433,7 @@ def _plot_experiment2(ablation_results: list[dict], categories: list[str]) -> No
     fig.suptitle("Experiment 2: Feature Ablation Results\n"
                  "(GPT-2 Small — factual recall dataset)", fontsize=12, y=1.01)
     plt.tight_layout()
-    plt.savefig("experiment2_ablation.png", dpi=150, bbox_inches="tight")
+    plt.savefig(RESULTS_DIR / "experiment2_ablation.png", dpi=150, bbox_inches="tight")
     plt.close()
     log.info("Saved → experiment2_ablation.png")
 

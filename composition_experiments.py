@@ -43,10 +43,13 @@ log = logging.getLogger(__name__)
 
 # ── Paths ─────────────────────────────────────────────────────────────────────
 
-DATASET_PATH    = Path("factual_recall_dataset.json")
-TOP_FEATURES_PATH = Path("top_features.json")
-ABLATION_PATH   = Path("ablation_results.json")
-INTERMEDIATE_DIR = Path("intermediate_results")
+DATA_DIR          = Path("data")
+RESULTS_DIR       = Path("results")
+INTERMEDIATE_DIR  = Path("intermediate_results")
+DATASET_PATH      = DATA_DIR / "factual_recall_dataset.json"
+TOP_FEATURES_PATH = RESULTS_DIR / "top_features.json"
+ABLATION_PATH     = RESULTS_DIR / "ablation_results.json"
+RESULTS_DIR.mkdir(exist_ok=True)
 INTERMEDIATE_DIR.mkdir(exist_ok=True)
 
 # ── Load model ────────────────────────────────────────────────────────────────
@@ -267,7 +270,7 @@ def run_experiment3(dataset: list[dict],
             for row in matrix
         ],
     }
-    with open("experiment3_compositionality.json", "w") as f:
+    with open(RESULTS_DIR / "experiment3_compositionality.json", "w") as f:
         json.dump(output, f, indent=2)
     log.info("Saved → experiment3_compositionality.json")
 
@@ -348,7 +351,7 @@ def _plot_experiment3(matrix:    np.ndarray,
     fig.suptitle("Experiment 3: Pairwise Feature Compositionality\n"
                  "(GPT-2 Small — factual recall dataset)", fontsize=12, y=1.01)
     plt.tight_layout()
-    plt.savefig("experiment3_compositionality.png", dpi=150, bbox_inches="tight")
+    plt.savefig(RESULTS_DIR / "experiment3_compositionality.png", dpi=150, bbox_inches="tight")
     plt.close()
     log.info("Saved → experiment3_compositionality.png")
 
@@ -397,7 +400,7 @@ def run_experiment4(dataset: list[dict], top10: list[dict]) -> dict:
         "features":       [s["feature_name"] for s in specialization],
         "specialization": specialization,
     }
-    with open("experiment4_specialization.json", "w") as f:
+    with open(RESULTS_DIR / "experiment4_specialization.json", "w") as f:
         json.dump(output, f, indent=2)
     log.info("Saved → experiment4_specialization.json")
 
@@ -467,7 +470,7 @@ def _plot_experiment4(specialization: list[dict], categories: list[str]) -> None
     fig.suptitle("Experiment 4: Feature Specialization — Top-10 Features × Fact Category\n"
                  "(GPT-2 Small — factual recall dataset)", fontsize=12, y=1.01)
     plt.tight_layout()
-    plt.savefig("experiment4_specialization.png", dpi=150, bbox_inches="tight")
+    plt.savefig(RESULTS_DIR / "experiment4_specialization.png", dpi=150, bbox_inches="tight")
     plt.close()
     log.info("Saved → experiment4_specialization.png")
 

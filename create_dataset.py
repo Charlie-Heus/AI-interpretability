@@ -29,6 +29,10 @@ script (validate_dataset.py) ALSO derives foils empirically from GPT-2's
 actual top-k distribution, which may differ from these guesses.
 """
 import json
+from pathlib import Path
+
+DATA_DIR = Path("data")
+DATA_DIR.mkdir(exist_ok=True)
 
 def cap2(a, ac, b, bc, target):
     return (f"The capital of {a} is {ac}. "
@@ -228,7 +232,7 @@ for i, ex in enumerate(dataset):
     for inc in ex["incorrect"]:
         assert inc.startswith(" "), f"Entry {i}: incorrect '{inc}' must start with space"
 
-with open("factual_recall_raw.json", "w") as f:
+with open(DATA_DIR / "factual_recall_raw.json", "w") as f:
     json.dump(dataset, f, indent=2)
 
 counts = {}
