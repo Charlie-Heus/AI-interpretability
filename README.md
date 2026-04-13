@@ -73,12 +73,10 @@ python3 validate_dataset.py
 # Step 3 — Feature attribution and zero-ablation (~5–10 min on CPU)
 python3 feature_experiments.py
 # → writes top_features.json, ablation_results.json
-# → writes experiment1_feature_importance.png, experiment2_ablation.png
 
 # Step 4 — Pairwise compositionality and feature specialization (~5–10 min on CPU)
 python3 composition_experiments.py
 # → writes experiment3_compositionality.json, experiment4_specialization.json
-# → writes experiment3_compositionality.png, experiment4_specialization.png
 ```
 
 Steps 3 and 4 write checkpoints to `intermediate_results/` after every 5 examples, so they can be safely interrupted and resumed.
